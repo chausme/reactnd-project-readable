@@ -1,0 +1,43 @@
+body {
+  display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+.root {
+	flex: 1;
+  display: flex;
+}
+
+.App {
+
+	flex: 1;
+  display: flex;
+  min-height: 100vh;
+	flex-direction: column;
+
+  h1 {
+    color: green;
+  }
+
+}
+
+header {
+  background: #dcf4eb;
+  padding: 20px;
+}
+
+main {
+	flex: 1;
+  padding: 20px;
+}
+
+footer {
+  text-align: center;
+  background: #dcf4eb;
+  padding: 20px;
+
+  p {
+    margin-bottom: 0;
+  }
+}
