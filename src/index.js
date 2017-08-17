@@ -7,7 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
   document.getElementById('root')
 );
+
 registerServiceWorker();
