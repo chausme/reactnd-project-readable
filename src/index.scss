@@ -1,7 +1,37 @@
+////////////////////////////////////////////////////////////////////////////////
+// Breakpoints
+////////////////////////////////////////////////////////////////////////////////
+
+$screen-xxs-min:		320px;
+$screen-xs-min:			480px;
+$screen-sm-min:			768px;
+$screen-md-min:			992px;
+$screen-lg-min:			1200px;
+$screen-xl-min:			1600px;
+
+////////////////////////////////////////////////////////////////////////////////
+// Colors
+////////////////////////////////////////////////////////////////////////////////
+
+$white:           #ffffff;
+$black:           #333333;
+$blue:            #003e7e;
+$blue-hover:      #04274c;
+$blue-light:      #7fb4d0;
+$blue-vlight:	    #dce7f0;
+$grey:            #a7a9ac;
+$grey-light:      #d3d4d5;
+$grey-vlight:     #f3f5f6;
+
+////////////////////////////////////////////////////////////////////////////////
+// General styles
+////////////////////////////////////////////////////////////////////////////////
+
 body {
   display: flex;
 	min-height: 100vh;
 	flex-direction: column;
+  color: $black;
 }
 
 .root {
@@ -16,26 +46,116 @@ body {
   min-height: 100vh;
 	flex-direction: column;
 
-  h1 {
-    color: green;
+}
+
+a {
+  color: $blue;
+
+  &:hover,
+  &:focus {
+    color: $blue-hover;
+    text-decoration: none;
   }
 
 }
 
+h1 {
+  color: $blue;
+}
+
 header {
-  background: #dcf4eb;
-  padding: 20px;
+  background: $blue-vlight;
+  padding: 20px 0;
 }
 
 main {
 	flex: 1;
-  padding: 20px;
+}
+
+section {
+  border-bottom: 1px $grey-light solid;
+  padding: 24px 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.posts {
+    padding-bottom: 48px;
+  }
+
+  &.create-post {
+    text-align: center;
+  }
+
+}
+
+.categories {
+
+  margin-bottom: 0;
+  text-align: center;
+
+  li {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0 24px;
+  }
+
+}
+
+.post {
+  margin-bottom: 16px;
+  border-bottom: 1px $grey-vlight solid;
+  padding-bottom: 32px;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.sort {
+  float: right;
+  margin: 16px 0;
+
+}
+
+.excerpt {
+  margin: 16px 0;
+}
+
+.post-meta {
+  padding: 12px 0 8px 0;
+  font-size: 0.9em;
+  font-weight: 700;
+
+  span {
+    margin-right: 32px;
+  }
+}
+
+.comments {
+
+}
+
+.score {
+
+  label {
+    margin-right: 8px;
+  }
+
+  input[type="number"] {
+    width: 50px;
+    padding-left: 4px;
+    font-weight: 400;
+  }
+
 }
 
 footer {
+  margin-top: 48px;
   text-align: center;
-  background: #dcf4eb;
-  padding: 20px;
+  background: $blue-vlight;
+  padding: 20px 0;
 
   p {
     margin-bottom: 0;
