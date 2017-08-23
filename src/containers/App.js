@@ -8,12 +8,18 @@ class App extends Component {
 
   state = {
     categories: [],
+    posts: [],
   }
 
   componentDidMount() {
     fetch('http://localhost:5001/categories', { headers: { 'Authorization': 'dmfR05SBzsxn30' }}).then((data) => {
       data.json().then((data) => {
         this.setState({ categories: data.categories })
+      })
+    })
+    fetch('http://localhost:5001/posts', { headers: { 'Authorization': 'dmfR05SBzsxn30' }}).then((data) => {
+      data.json().then((data) => {
+        this.setState({ posts: data })
       })
     })
   }
@@ -39,11 +45,9 @@ class App extends Component {
             <Switch>
               <Route exact path='/create' component={CreatePost} />
               <Route exact path='/:category?' render={() => (
-
-                <Posts categories={this.state.categories} />
-
+                <Posts categories={this.state.categories} posts={this.state.posts} />
               )}/>
-              <Route exact path='/:category/8xf0y6ziyjabvozdd253nd' component={SinglePost} />
+              <Route exact path='/:category/:id' component={SinglePost} />
             </Switch>
 
           </div>

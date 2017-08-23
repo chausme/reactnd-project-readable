@@ -7,8 +7,6 @@ class Categories extends Component {
 
     let categories = this.props.categories;
 
-    console.log(categories);
-
     return(
 
       <section className="row categories">

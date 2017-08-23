@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom'
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
+import Post from '../components/Post';
 
 class Posts extends Component {
 
   render() {
 
-    const categories = this.props.categories
+    const { categories, posts } = this.props
 
     return(
 
@@ -19,44 +20,13 @@ class Posts extends Component {
 
         <div className="col-xs-12">
           <div className="row">
+            {posts.map((post) => (
 
-            <Route exact path='/:foo(react)*' render={() => (
-              <div className="col-sm-12 post">
-                <Link to="/react/8xf0y6ziyjabvozdd253nd"><h2>Post title</h2></Link>
-                <div className="post-meta">
-                  <span>posted by [author] on [timestamp] in <a href="#">[category name]</a> category</span>
-                  <span>0 comments</span>
-                  <span className="score">
-                    <label htmlFor="8xf0y6ziyjabvozdd253nd">post score</label>
-                    <input type="number" id="8xf0y6ziyjabvozdd253nd" value="2" />
-                  </span>
-                </div>
+              <Route exact path={`/:foo(${post.category})*`} key={post.id} render={() => (
+                <Post post={post} />
+              )}/>
 
-                <div className="excerpt entry">
-                  [trimmed post content]
-                </div>
-
-              </div>
-            )}/>
-
-            <Route exact path='/:foo(redux)*' render={() => (
-              <div className="col-sm-12 post">
-                <Link to="/react/6ni6ok3ym7mf1p33lnez"><h2>Post title 2</h2></Link>
-                <div className="post-meta">
-                  <span>posted by [author] on [timestamp] in <a href="#">[category name]</a> category</span>
-                  <span>0 comments</span>
-                  <span className="score">
-                    <label htmlFor="6ni6ok3ym7mf1p33lnez">post score</label>
-                    <input type="number" id="6ni6ok3ym7mf1p33lnez" value="2" />
-                  </span>
-                </div>
-
-                <div className="excerpt entry">
-                  [trimmed post content]
-                </div>
-
-              </div>
-            )}/>
+            ))}
 
           </div>
         </div>
