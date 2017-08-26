@@ -3,12 +3,17 @@ import { Route, Link, Switch } from 'react-router-dom'
 import Posts from '../components/Posts';
 import CreatePost from '../components/CreatePost';
 import SinglePost from '../components/SinglePost';
+import Success from '../components/Success';
 
 class App extends Component {
 
   state = {
     categories: [],
     posts: [],
+    title: '',
+    body: '',
+    category: '',
+    createPostRedirect: false
   }
 
   componentDidMount() {
@@ -22,6 +27,59 @@ class App extends Component {
         this.setState({ posts: data })
       })
     })
+  }
+
+  submitPost = (e) => {
+
+    let data = {
+        id: Math.random() * 100,
+        timestamp: Date.now(),
+        title: this.state.title,
+        body: this.state.body,
+        author: 'admin',
+        category: this.state.category
+    }
+
+    let fetchData = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'dmfR05SBzsxn30'
+        }
+    }
+
+    fetch('http://localhost:5001/posts', fetchData)
+    .then(response => {
+     return response.json().then(data => {
+       if (response.ok) {
+         this.setState({ createPostRedirect: true })
+         fetch('http://localhost:5001/posts', { headers: { 'Authorization': 'dmfR05SBzsxn30' }}).then((data) => {
+           data.json().then((data) => {
+             this.setState({ posts: data })
+           })
+         })
+         return data;
+       } else {
+         return Promise.reject({status: response.status, data});
+       }
+     });
+    }).catch(error => console.log('error is', error));
+
+    e.preventDefault();
+
+  }
+
+  updateField = (e) => {
+
+    let fieldValue = e.target.value;
+
+    this.setState({ [e.target.name]:fieldValue })
+
+    console.log(this.state);
+
+    e.preventDefault();
+
   }
 
   render() {
@@ -43,7 +101,12 @@ class App extends Component {
           <div className="container">
 
             <Switch>
-              <Route exact path='/create' component={CreatePost} />
+            <Route exact path='/success' render={() => (
+              <Success />
+            )}/>
+              <Route exact path='/create' render={() => (
+                <CreatePost onCreate={this.submitPost} onChange={this.updateField} fromRedirect={this.state.createPostRedirect} />
+              )}/>
               <Route exact path='/:category?' render={() => (
                 <Posts categories={this.state.categories} posts={this.state.posts} />
               )}/>
