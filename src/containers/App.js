@@ -105,9 +105,9 @@ class App extends Component {
           <div className="container">
 
             <Switch>
-            <Route exact path='/success' render={() => (
-              <Success />
-            )}/>
+              <Route exact path='/success' render={() => (
+                <Success />
+              )}/>
               <Route exact path='/create' render={() => (
                 <CreatePost categories={this.state.categories} onCreate={this.submitPost} onChange={this.updateField} fromRedirect={this.state.createPostRedirect} />
               )}/>

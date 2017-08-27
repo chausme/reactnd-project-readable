@@ -184,6 +184,17 @@ select {
 
 }
 
+.entry {
+  margin-top: 24px;
+  padding: 24px 0;
+  border-bottom: 1px $grey-vlight solid;
+  border-top: 1px $grey-vlight solid;
+}
+
+.comments {
+  margin-top: 24px;
+}
+
 footer {
   margin-top: 48px;
   text-align: center;
