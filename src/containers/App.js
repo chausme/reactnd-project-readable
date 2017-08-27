@@ -5,18 +5,22 @@ import CreatePost from '../components/CreatePost';
 import SinglePost from '../components/SinglePost';
 import Success from '../components/Success';
 
+const uuidv4 = require('uuid/v4');
+
 class App extends Component {
 
   state = {
     categories: [],
     posts: [],
     title: '',
+    author: '',
     body: '',
     category: '',
     createPostRedirect: false
   }
 
   componentDidMount() {
+
     fetch('http://localhost:5001/categories', { headers: { 'Authorization': 'dmfR05SBzsxn30' }}).then((data) => {
       data.json().then((data) => {
         this.setState({ categories: data.categories })
@@ -32,11 +36,11 @@ class App extends Component {
   submitPost = (e) => {
 
     let data = {
-        id: Math.random() * 100,
+        id: uuidv4(),
         timestamp: Date.now(),
         title: this.state.title,
         body: this.state.body,
-        author: 'admin',
+        author: this.state.author,
         category: this.state.category
     }
 
@@ -56,7 +60,7 @@ class App extends Component {
          this.setState({ createPostRedirect: true })
          fetch('http://localhost:5001/posts', { headers: { 'Authorization': 'dmfR05SBzsxn30' }}).then((data) => {
            data.json().then((data) => {
-             this.setState({ posts: data })
+             this.setState({ posts: data, createPostRedirect: false })
            })
          })
          return data;
@@ -105,7 +109,7 @@ class App extends Component {
               <Success />
             )}/>
               <Route exact path='/create' render={() => (
-                <CreatePost onCreate={this.submitPost} onChange={this.updateField} fromRedirect={this.state.createPostRedirect} />
+                <CreatePost categories={this.state.categories} onCreate={this.submitPost} onChange={this.updateField} fromRedirect={this.state.createPostRedirect} />
               )}/>
               <Route exact path='/:category?' render={() => (
                 <Posts categories={this.state.categories} posts={this.state.posts} />

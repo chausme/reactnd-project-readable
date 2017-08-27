@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
+const capitalize = require('capitalize');
+
 class Categories extends Component {
 
   render() {
@@ -15,7 +17,7 @@ class Categories extends Component {
           <ul className="categories">
             {categories.map((category) => (
               <li key={category.name}>
-                <Link to={"/" + category.path} className="btn btn-primary">{category.name}</Link>
+                <Link to={"/" + category.path} className="btn btn-primary">{capitalize(category.name)}</Link>
               </li>
             ))}
           </ul>

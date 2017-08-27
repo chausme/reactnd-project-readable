@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router'
 
+const capitalize = require('capitalize');
+
 class CreatePost extends Component {
 
   render() {
 
-    const {onCreate, onChange, fromRedirect} = this.props
+    const {onCreate, onChange, fromRedirect, categories} = this.props
 
     return(
 
@@ -17,14 +19,17 @@ class CreatePost extends Component {
 
           <form onSubmit={(e) => onCreate(e)}>
             <div className="field">
+              <input type="text" name="author" placeholder="Author" onChange={(e) => onChange(e)} />
+            </div>
+            <div className="field">
               <input type="text" name="title" placeholder="Post title" onChange={(e) => onChange(e)} />
             </div>
             <div className="field">
-              <select name="category" onChange={(e) => onChange(e)}>
-                <option>Category:</option>
-                <option>React</option>
-                <option>Redux</option>
-                <option>Udacity</option>
+              <select defaultValue="Category:" name="category" onChange={(e) => onChange(e)}>
+                <option disabled>Category:</option>
+                {categories.map((category) => (
+                  <option key={category.name} value={category.path}>{capitalize(category.name)}</option>
+                ))}
               </select>
             </div>
             <div className="field">
