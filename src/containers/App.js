@@ -16,7 +16,7 @@ class App extends Component {
     author: '',
     body: '',
     category: '',
-    createPostRedirect: false
+    postRedirect: false
   }
 
   componentDidMount() {
@@ -57,10 +57,10 @@ class App extends Component {
     .then(response => {
      return response.json().then(data => {
        if (response.ok) {
-         this.setState({ createPostRedirect: true })
+         this.setState({ postRedirect: true })
          fetch('http://localhost:5001/posts', { headers: { 'Authorization': 'dmfR05SBzsxn30' }}).then((data) => {
            data.json().then((data) => {
-             this.setState({ posts: data, createPostRedirect: false })
+             this.setState({ posts: data, postRedirect: false })
            })
          })
          return data;
@@ -109,11 +109,12 @@ class App extends Component {
                 <Success />
               )}/>
               <Route exact path='/create' render={() => (
-                <CreatePost categories={this.state.categories} onCreate={this.submitPost} onChange={this.updateField} fromRedirect={this.state.createPostRedirect} />
+                <CreatePost categories={this.state.categories} onCreate={this.submitPost} onChange={this.updateField} postRedirect={this.state.postRedirect} />
               )}/>
               <Route exact path='/:category?' render={() => (
                 <Posts categories={this.state.categories} posts={this.state.posts} />
               )}/>
+
               <Route exact path='/:category/:id' component={SinglePost} />
             </Switch>
 

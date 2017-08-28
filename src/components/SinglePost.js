@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router'
 
 const capitalize = require('capitalize');
 
 class SinglePost extends Component {
+
+  state = {
+    postRedirect: false
+  }
 
   deletePost = (e, post) => {
 
     fetch('http://localhost:5001/posts/' + post.id, { method: 'DELETE', headers: { 'Authorization': 'dmfR05SBzsxn30' } }).then((data) => {
       data.text().then((data) => {
         console.log('post deleted!');
+        this.setState({ postRedirect: true })
       })
     })
 
@@ -20,6 +26,7 @@ class SinglePost extends Component {
   render() {
 
     const post = this.props.location.state.post
+    const postRedirect = this.state.postRedirect
 
     console.log(post);
 
@@ -62,7 +69,9 @@ class SinglePost extends Component {
           </div>
 
         </div>
-
+        {postRedirect && (
+          <Redirect to={'/success'}/>
+        )}
       </section>
 
     )

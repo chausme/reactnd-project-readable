@@ -20,9 +20,9 @@ class Posts extends Component {
 
         <div className="col-xs-12">
           <div className="row">
-            {posts.map((post) => (
+            {posts.filter((post) => post.deleted === false).map((post) => (
 
-              <Route exact path={`/:foo(${post.category})*`} key={post.id} render={() => (
+              <Route exact path={`/:category(${post.category})*`} key={post.id} render={() => (
                 <Post post={post} />
               )}/>
 

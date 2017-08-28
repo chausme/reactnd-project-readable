@@ -7,7 +7,7 @@ class CreatePost extends Component {
 
   render() {
 
-    const {onCreate, onChange, fromRedirect, categories} = this.props
+    const {onCreate, onChange, postRedirect, categories} = this.props
 
     return(
 
@@ -39,7 +39,7 @@ class CreatePost extends Component {
               <input type="submit" value="Create" className="btn btn-primary btn-success" />
             </div>
           </form>
-          {fromRedirect && (
+          {postRedirect && (
             <Redirect to={'/success'}/>
           )}
         </div>
