@@ -1,92 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { Route, Link, Switch } from 'react-router-dom'
 import Posts from '../components/Posts';
 import CreatePost from '../components/CreatePost';
 import SinglePost from '../components/SinglePost';
 import Success from '../components/Success';
+import { removePost } from '../actions'
 
 const uuidv4 = require('uuid/v4');
 
 class App extends Component {
 
-  state = {
-    categories: [],
-    posts: [],
-    title: '',
-    author: '',
-    body: '',
-    category: '',
-    postRedirect: false
-  }
-
-  componentDidMount() {
-
-    fetch('http://localhost:5001/categories', { headers: { 'Authorization': 'dmfR05SBzsxn30' }}).then((data) => {
-      data.json().then((data) => {
-        this.setState({ categories: data.categories })
-      })
-    })
-    fetch('http://localhost:5001/posts', { headers: { 'Authorization': 'dmfR05SBzsxn30' }}).then((data) => {
-      data.json().then((data) => {
-        this.setState({ posts: data })
-      })
-    })
-  }
-
-  submitPost = (e) => {
-
-    let data = {
-        id: uuidv4(),
-        timestamp: Date.now(),
-        title: this.state.title,
-        body: this.state.body,
-        author: this.state.author,
-        category: this.state.category
-    }
-
-    let fetchData = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'dmfR05SBzsxn30'
-        }
-    }
-
-    fetch('http://localhost:5001/posts', fetchData)
-    .then(response => {
-     return response.json().then(data => {
-       if (response.ok) {
-         this.setState({ postRedirect: true })
-         fetch('http://localhost:5001/posts', { headers: { 'Authorization': 'dmfR05SBzsxn30' }}).then((data) => {
-           data.json().then((data) => {
-             this.setState({ posts: data, postRedirect: false })
-           })
-         })
-         return data;
-       } else {
-         return Promise.reject({status: response.status, data});
-       }
-     });
-    }).catch(error => console.log('error is', error));
-
-    e.preventDefault();
-
-  }
-
-  updateField = (e) => {
-
-    let fieldValue = e.target.value;
-
-    this.setState({ [e.target.name]:fieldValue })
-
-    console.log(this.state);
-
-    e.preventDefault();
-
-  }
-
   render() {
+
+    const { categories, posts, removePost } = this.props
+
+    const id = '8xf0y6ziyjabvozdd253nd';
 
     return (
       <div className="App">
@@ -109,10 +38,10 @@ class App extends Component {
                 <Success />
               )}/>
               <Route exact path='/create' render={() => (
-                <CreatePost categories={this.state.categories} onCreate={this.submitPost} onChange={this.updateField} postRedirect={this.state.postRedirect} />
+                <CreatePost categories={categories} />
               )}/>
               <Route exact path='/:category?' render={() => (
-                <Posts categories={this.state.categories} posts={this.state.posts} />
+                <Posts categories={categories} posts={posts} removePost={removePost} />
               )}/>
 
               <Route exact path='/:category/:id' component={SinglePost} />
@@ -136,6 +65,23 @@ class App extends Component {
       </div>
     );
   }
+
 }
 
-export default App;
+function mapStateToProps ({categories, posts}) {
+  return {
+    categories: Object.values(categories),
+    posts: Object.values(posts),
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    removePost: (data) => dispatch(removePost(data)),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

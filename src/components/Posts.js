@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom'
-import Categories from '../components/Categories';
-import Sort from '../components/Sort';
-import Post from '../components/Post';
+import Categories from '../components/Categories'
+import Sort from '../components/Sort'
+import Post from '../components/Post'
 
 class Posts extends Component {
 
   render() {
 
-    const { categories, posts } = this.props
+    const { categories, posts, removePost } = this.props
+
+    console.log(this.props);
 
     return(
 
@@ -23,7 +25,7 @@ class Posts extends Component {
             {posts.filter((post) => post.deleted === false).map((post) => (
 
               <Route exact path={`/:category(${post.category})*`} key={post.id} render={() => (
-                <Post post={post} />
+                <Post post={post} removePost={removePost} />
               )}/>
 
             ))}
