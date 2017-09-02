@@ -6,6 +6,7 @@
     "bootstrap": "^3.3.7",
     "capitalize": "^1.0.0",
     "node-sass-chokidar": "0.0.3",
+    "normalizr": "^3.2.3",
     "npm-run-all": "^4.0.2",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.2",
@@ -15,6 +16,8 @@
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.11",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
     "unix-timestamp": "^0.2.0",
     "uuid": "^3.1.0"
   },

@@ -1,60 +1,35 @@
 import { combineReducers } from 'redux'
+import { fetchCategories, fetchPosts } from '../utils/api'
 
 import {
   ADD_POST,
   REMOVE_POST,
 } from '../actions'
 
-const categoriesInitialState = {
-  'react': {
-    name: 'react',
-    path: 'react'
-  },
-  'redux': {
-    name: 'redux',
-    path: 'redux'
-  },
-  'udacity': {
-    name: 'udacity',
-    path: 'udacity'
-  }
-}
+import {
+  RECEIVE_CATEGORIES,
+  RECEIVE_POSTS,
+} from '../actions/apiActions'
 
-function categories (state = categoriesInitialState, action) {
+function categories (state = {}, action) {
+
+  const { categories } = action
+
   switch (action.type) {
+    case RECEIVE_CATEGORIES :
+      return categories
     default :
       return state
   }
 }
 
-const postsInitialState = {
-  '8xf0y6ziyjabvozdd253nd' : {
-      'author' : 'thingtwo',
-      'body' : 'Everyone says so after all.',
-      'category' : 'react',
-      'deleted' : false,
-      'id' : '8xf0y6ziyjabvozdd253nd',
-      'timestamp' : 1467166872634,
-      'title' : 'Udacity is the best place to learn React',
-      'voteScore' : 6,
-  },
-  '6ni6ok3ym7mf1p33lnez': {
-    id: '6ni6ok3ym7mf1p33lnez',
-    timestamp: 1468479767190,
-    title: 'Learn Redux in 10 minutes!',
-    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
-    author: 'thingone',
-    category: 'redux',
-    voteScore: -5,
-    deleted: false
-  }
-}
+function posts (state = {}, action) {
 
-function posts (state = postsInitialState, action) {
-
-  const { id } = action
+  const { id, posts } = action
 
   switch (action.type) {
+    case RECEIVE_POSTS :
+      return posts
     case ADD_POST :
       return {
         ...state,

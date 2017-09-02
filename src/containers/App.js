@@ -6,10 +6,18 @@ import CreatePost from '../components/CreatePost';
 import SinglePost from '../components/SinglePost';
 import Success from '../components/Success';
 import { removePost } from '../actions'
+import { fetchCategories, fetchPosts } from '../actions/apiActions'
 
 const uuidv4 = require('uuid/v4');
 
 class App extends Component {
+
+  componentDidMount() {
+
+    this.props.fetchCategories()
+    this.props.fetchPosts()
+
+  }
 
   render() {
 
@@ -78,6 +86,8 @@ function mapStateToProps ({categories, posts}) {
 function mapDispatchToProps (dispatch) {
   return {
     removePost: (data) => dispatch(removePost(data)),
+    fetchCategories: () => dispatch(fetchCategories()),
+    fetchPosts: () => dispatch(fetchPosts()),
   }
 }
 
