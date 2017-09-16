@@ -24,7 +24,7 @@ class App extends Component {
 
     const { categories, posts, removePost } = this.props
 
-    const id = '8xf0y6ziyjabvozdd253nd';
+    //const id = '8xf0y6ziyjabvozdd253nd';
 
     return (
       <div className="App">
