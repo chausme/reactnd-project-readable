@@ -7,6 +7,7 @@ import SinglePost from '../components/SinglePost';
 import Success from '../components/Success';
 import { removePost } from '../actions'
 import { fetchCategories, fetchPosts } from '../actions/apiActions'
+import { withRouter } from 'react-router'
 
 const uuidv4 = require('uuid/v4');
 
@@ -91,7 +92,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(App));
