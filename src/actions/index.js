@@ -29,3 +29,38 @@ export const fetchPosts = () => dispatch => (
     normalize(posts, postsListSchema).entities.posts
   ))))
 );
+
+export const CREATE_POST = "CREATE_POST";
+
+export const createPost = ({ title, body, author, category, voteScore }) => ({
+    type: CREATE_POST,
+    id: 'somehardcodedid',
+    title,
+    body,
+    author,
+    category,
+    voteScore
+});
+
+let fetchData = {
+    method: 'POST',
+    body: {id: 'aaaever', author: 'newauthor'},
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'dmfR05SBzsxn30'
+    }
+}
+
+export const createPostCall = () => dispatch => (
+  Api.fetchPosts()
+  .then(response => response.json()).then((posts => dispatch(receivePosts(
+    normalize(posts, postsListSchema).entities.posts
+  ))))
+);
+
+export const REMOVE_POST = 'REMOVE_POST'
+
+export const removePost = ({id}) => ({
+  type: REMOVE_POST,
+  id
+});
