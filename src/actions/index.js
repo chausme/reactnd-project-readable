@@ -6,14 +6,14 @@ const postsListSchema = [ postsSchema ];
 
 export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
 
-export const receiveCategories = categories => ({
+export const fetchCategoriesAction = categories => ({
   type: RECEIVE_CATEGORIES,
   categories
 });
 
 export const fetchCategories = () => dispatch => (
   Api.fetchCategories()
-  .then(response => response.json()).then((categories => dispatch(receiveCategories(categories.categories))))
+  .then(response => response.json()).then((categories => dispatch(fetchCategoriesAction(categories.categories))))
 );
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
@@ -42,17 +42,17 @@ export const createPost = ({ title, body, author, category, voteScore }) => ({
     voteScore
 });
 
-let fetchData = {
-    method: 'POST',
-    body: {id: 'aaaever', author: 'newauthor'},
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'dmfR05SBzsxn30'
-    }
-}
+// let fetchData = {
+//     method: 'POST',
+//     body: {id: 'aaaever', author: 'newauthor'},
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': 'dmfR05SBzsxn30'
+//     }
+// }
 
 export const createPostCall = () => dispatch => (
-  Api.fetchPosts()
+  Api.createPostCall()
   .then(response => response.json()).then((posts => dispatch(receivePosts(
     normalize(posts, postsListSchema).entities.posts
   ))))
@@ -60,7 +60,24 @@ export const createPostCall = () => dispatch => (
 
 export const REMOVE_POST = 'REMOVE_POST'
 
-export const removePost = ({id}) => ({
+export const removePostAction = ({id}) => ({
   type: REMOVE_POST,
   id
 });
+
+// deletePost = (e, post) => {
+//
+//   fetch('http://localhost:5001/posts/' + post.id, { method: 'DELETE', headers: { 'Authorization': 'dmfR05SBzsxn30' } }).then((data) => {
+//     data.text().then((data) => {
+//       console.log('post deleted!');
+//     })
+//   })
+//
+//   e.preventDefault();
+//
+// }
+
+export const removePost = ({id}) => dispatch => (
+  Api.removePost({id})
+  .then(response => response.json()).then((post => dispatch(removePostAction({id}))))
+);

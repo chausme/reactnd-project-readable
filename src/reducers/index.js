@@ -14,7 +14,7 @@ function categories (state = {}, action) {
 
   switch (action.type) {
     case RECEIVE_CATEGORIES :
-      return categories
+      return categories ? categories : state
     default :
       return state
   }
@@ -26,9 +26,9 @@ function posts (state = {}, action) {
 
   switch (action.type) {
     case RECEIVE_POSTS :
-      return posts
+      return posts ? posts : state
     case REMOVE_POST :
-      console.log(id)
+      console.log(`post ${id} removed`)
       return {
         ...state,
         [id]: {

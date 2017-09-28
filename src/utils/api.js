@@ -9,3 +9,5 @@ export const createPostCall = (fetchData) => fetch('http://localhost:3001/posts'
     }
   });
 }).catch(error => console.log('error is', error));
+
+export const removePost = ({id}) => fetch('http://localhost:3001/posts/' + id, { method: 'DELETE', headers: { 'Authorization': 'dmfR05SBzsxn30' }})
