@@ -5,8 +5,7 @@ import Posts from '../components/Posts';
 import CreatePost from '../components/CreatePost';
 import SinglePost from '../components/SinglePost';
 import Success from '../components/Success';
-import { removePost } from '../actions'
-import { fetchCategories, fetchPosts } from '../actions/apiActions'
+import { removePost, fetchCategories, fetchPosts, createPost } from '../actions'
 import { withRouter } from 'react-router'
 
 const uuidv4 = require('uuid/v4');
@@ -22,9 +21,7 @@ class App extends Component {
 
   render() {
 
-    const { categories, posts, removePost } = this.props
-
-    //const id = '8xf0y6ziyjabvozdd253nd';
+    const { categories, posts, removePost, createPost } = this.props
 
     return (
       <div className="App">
@@ -47,7 +44,7 @@ class App extends Component {
                 <Success />
               )}/>
               <Route exact path='/create' render={() => (
-                <CreatePost categories={categories} />
+                <CreatePost categories={categories} createPost={createPost} />
               )}/>
               <Route exact path='/:category?' render={() => (
                 <Posts categories={categories} posts={posts} removePost={removePost} />
@@ -87,6 +84,7 @@ function mapStateToProps ({categories, posts}) {
 function mapDispatchToProps (dispatch) {
   return {
     removePost: (data) => dispatch(removePost(data)),
+    createPost: (data) => dispatch(createPost(data)),
     fetchCategories: () => dispatch(fetchCategories()),
     fetchPosts: () => dispatch(fetchPosts()),
   }

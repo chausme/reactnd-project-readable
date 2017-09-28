@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router'
+import CreatePostForm from './CreatePostForm'
 
 const capitalize = require('capitalize');
 
@@ -7,7 +8,7 @@ class CreatePost extends Component {
 
   render() {
 
-    const {onCreate, onChange, postRedirect, categories} = this.props
+    const {onCreate, onChange, categories, createPost} = this.props
 
     return(
 
@@ -17,31 +18,8 @@ class CreatePost extends Component {
 
           <h2>Create new post</h2>
 
-          <form onSubmit={(e) => onCreate(e)}>
-            <div className="field">
-              <input type="text" name="author" placeholder="Author" onChange={(e) => onChange(e)} />
-            </div>
-            <div className="field">
-              <input type="text" name="title" placeholder="Post title" onChange={(e) => onChange(e)} />
-            </div>
-            <div className="field">
-              <select defaultValue="Category:" name="category" onChange={(e) => onChange(e)}>
-                <option disabled>Category:</option>
-                {categories.map((category) => (
-                  <option key={category.name} value={category.path}>{capitalize(category.name)}</option>
-                ))}
-              </select>
-            </div>
-            <div className="field">
-              <textarea placeholder="Post content" name="body" onChange={(e) => onChange(e)}></textarea>
-            </div>
-            <div className="field">
-              <input type="submit" value="Create" className="btn btn-primary btn-success" />
-            </div>
-          </form>
-          {postRedirect && (
-            <Redirect to={'/success'}/>
-          )}
+          <CreatePostForm onSubmit={createPost} />
+
         </div>
 
       </section>

@@ -1,15 +1,12 @@
 import { combineReducers } from 'redux'
-import { fetchCategories, fetchPosts } from '../utils/api'
+import { reducer as formReducer } from 'redux-form'
 
 import {
-  ADD_POST,
   REMOVE_POST,
-} from '../actions'
-
-import {
   RECEIVE_CATEGORIES,
   RECEIVE_POSTS,
-} from '../actions/apiActions'
+  CREATE_POST
+} from '../actions'
 
 function categories (state = {}, action) {
 
@@ -25,18 +22,12 @@ function categories (state = {}, action) {
 
 function posts (state = {}, action) {
 
-  const { id, posts } = action
+  const { id, posts, author } = action
 
   switch (action.type) {
     case RECEIVE_POSTS :
       return posts
-    case ADD_POST :
-      return {
-        ...state,
-        [2]: null,
-      }
     case REMOVE_POST :
-
       console.log(id)
       return {
         ...state,
@@ -45,6 +36,19 @@ function posts (state = {}, action) {
           deleted: true
         },
       }
+      case CREATE_POST :
+        console.log('create post');
+        return {
+          ...state,
+          [id]: {
+            id: id,
+            title: 1,
+            body: 1,
+            author: author,
+            category: 'react',
+            voteScore: 1
+          }
+        }
     default :
       return state
   }
@@ -53,4 +57,5 @@ function posts (state = {}, action) {
 export default combineReducers({
   categories,
   posts,
+  form: formReducer
 })
