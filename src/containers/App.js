@@ -8,8 +8,6 @@ import Success from '../components/Success';
 import { removePost, fetchCategories, fetchPosts, createPost } from '../actions'
 import { withRouter } from 'react-router'
 
-const uuidv4 = require('uuid/v4');
-
 class App extends Component {
 
   componentDidMount() {

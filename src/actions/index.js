@@ -1,6 +1,8 @@
 import * as Api from '../utils/api';
 import { normalize, schema } from 'normalizr';
 
+const uuidv4 = require('uuid/v4');
+
 const postsSchema = new schema.Entity('posts');
 const postsListSchema = [ postsSchema ];
 
@@ -32,31 +34,18 @@ export const fetchPosts = () => dispatch => (
 
 export const CREATE_POST = "CREATE_POST";
 
-export const createPost = ({ title, body, author, category, voteScore }) => ({
+export const createPostAction = post => ({
     type: CREATE_POST,
-    id: 'somehardcodedid',
-    title,
-    body,
-    author,
-    category,
-    voteScore
+    post
 });
 
-// let fetchData = {
-//     method: 'POST',
-//     body: {id: 'aaaever', author: 'newauthor'},
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': 'dmfR05SBzsxn30'
-//     }
-// }
+export const createPost = (post) => dispatch => {
 
-export const createPostCall = () => dispatch => (
-  Api.createPostCall()
-  .then(response => response.json()).then((posts => dispatch(receivePosts(
-    normalize(posts, postsListSchema).entities.posts
-  ))))
-);
+  post.id = uuidv4();
+
+  return Api.createPost(post)
+  .then(response => response.json()).then((post => dispatch(createPostAction(post))))
+}
 
 export const REMOVE_POST = 'REMOVE_POST'
 
@@ -64,18 +53,6 @@ export const removePostAction = ({id}) => ({
   type: REMOVE_POST,
   id
 });
-
-// deletePost = (e, post) => {
-//
-//   fetch('http://localhost:5001/posts/' + post.id, { method: 'DELETE', headers: { 'Authorization': 'dmfR05SBzsxn30' } }).then((data) => {
-//     data.text().then((data) => {
-//       console.log('post deleted!');
-//     })
-//   })
-//
-//   e.preventDefault();
-//
-// }
 
 export const removePost = ({id}) => dispatch => (
   Api.removePost({id})
