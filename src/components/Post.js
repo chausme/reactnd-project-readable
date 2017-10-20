@@ -9,15 +9,10 @@ class Post extends Component {
     const { post, removePost } = this.props
     const id = post.id
 
-    //console.log(this.props);
-
     return(
 
       <div className="col-sm-12 post">
-        <Link to={{
-          pathname: `/${post.category}/${post.id}`,
-          state: { post: post }
-        }}>
+        <Link to={`/${post.category}/${post.id}`}>
           <h2>{post.title}</h2>
         </Link>
         <div className="post-meta">
@@ -27,7 +22,7 @@ class Post extends Component {
             <label htmlFor="8xf0y6ziyjabvozdd253nd">post score</label>
             <input type="number" id="8xf0y6ziyjabvozdd253nd" defaultValue={post.voteScore} />
           </span>
-          <button onClick={() => removePost({id})}>Delete post</button>
+          <button onClick={() => removePost({id})} className="btn btn-primary">Delete</button>
         </div>
       </div>
 

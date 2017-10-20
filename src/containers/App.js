@@ -49,6 +49,7 @@ class App extends Component {
               )}/>
 
               <Route exact path='/:category/:id' component={SinglePost} />
+
             </Switch>
 
           </div>

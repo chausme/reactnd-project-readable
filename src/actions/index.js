@@ -32,6 +32,18 @@ export const fetchPosts = () => dispatch => (
   ))))
 );
 
+export const FETCH_SINGLE_POST = "FETCH_SINGLE_POST";
+
+export const fetchSinglePostAction = post => ({
+  type: FETCH_SINGLE_POST,
+  post
+});
+
+export const fetchSinglePost = (id) => dispatch => (
+  Api.fetchSinglePost(id)
+  .then(response => response.json()).then((post => dispatch(fetchSinglePostAction(post))))
+);
+
 export const CREATE_POST = "CREATE_POST";
 
 export const createPostAction = post => ({
@@ -41,7 +53,8 @@ export const createPostAction = post => ({
 
 export const createPost = (post) => dispatch => {
 
-  post.id = uuidv4();
+  post.id = uuidv4()
+  post.timestamp = + new Date()
 
   return Api.createPost(post)
   .then(response => response.json()).then((post => dispatch(createPostAction(post))))
