@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router'
-import { removePost, fetchSinglePost } from '../actions'
+import { fetchPost, removePost } from '../actions'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
-const capitalize = require('capitalize');
+const capitalize = require('capitalize')
 
 class SinglePost extends Component {
 
   componentDidMount() {
 
-    this.props.fetchSinglePost(this.props.match.params.id)
+    this.props.fetchPost(this.props.match.params.id)
 
   }
 
@@ -19,16 +19,13 @@ class SinglePost extends Component {
 
     const post = this.props.post
 
-    console.log(this.props)
-    console.log(post)
-
-    let timestamp = new Date(post.timestamp);
+    let timestamp = new Date(post.timestamp)
 
     let options = {
         year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"
-    };
+    }
 
-    let postDate = timestamp.toLocaleTimeString("en-us", options);
+    let postDate = timestamp.toLocaleTimeString("en-us", options)
 
     return(
 
@@ -80,11 +77,11 @@ function mapStateToProps ({post}) {
 function mapDispatchToProps (dispatch) {
   return {
     removePost: (data) => dispatch(removePost(data)),
-    fetchSinglePost: (data) => dispatch(fetchSinglePost(data))
+    fetchPost: (data) => dispatch(fetchPost(data))
   }
 }
 
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(SinglePost));
+)(SinglePost))

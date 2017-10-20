@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, Link, Switch } from 'react-router-dom'
-import Posts from '../components/Posts';
-import CreatePost from '../components/CreatePost';
-import SinglePost from '../components/SinglePost';
-import Success from '../components/Success';
-import { removePost, fetchCategories, fetchPosts, createPost } from '../actions'
+import Posts from '../components/Posts'
+import CreatePost from '../components/CreatePost'
+import SinglePost from '../components/SinglePost'
+import { fetchCategories, fetchPosts, createPost, removePost } from '../actions'
 import { withRouter } from 'react-router'
 
 class App extends Component {
@@ -19,7 +18,7 @@ class App extends Component {
 
   render() {
 
-    const { categories, posts, removePost, createPost } = this.props
+    const { categories, posts, createPost, removePost } = this.props
 
     return (
       <div className="App">
@@ -38,9 +37,6 @@ class App extends Component {
           <div className="container">
 
             <Switch>
-              <Route exact path='/success' render={() => (
-                <Success />
-              )}/>
               <Route exact path='/create' render={() => (
                 <CreatePost categories={categories} createPost={createPost} />
               )}/>
@@ -82,14 +78,14 @@ function mapStateToProps ({categories, posts}) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    removePost: (data) => dispatch(removePost(data)),
-    createPost: (data) => dispatch(createPost(data)),
     fetchCategories: () => dispatch(fetchCategories()),
     fetchPosts: () => dispatch(fetchPosts()),
+    createPost: (data) => dispatch(createPost(data)),
+    removePost: (data) => dispatch(removePost(data))
   }
 }
 
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App));
+)(App))

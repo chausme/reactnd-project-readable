@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import CreatePostForm from './CreatePostForm'
 
-const capitalize = require('capitalize');
+const capitalize = require('capitalize')
 
 class CreatePost extends Component {
 
   render() {
 
-    const {onCreate, onChange, categories, createPost} = this.props
+    const {categories, createPost } = this.props
 
     return(
 

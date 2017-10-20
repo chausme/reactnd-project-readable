@@ -10,8 +10,6 @@ class Posts extends Component {
 
     const { categories, posts, removePost } = this.props
 
-    //console.log(this.props);
-
     return(
 
       <section className="row posts">

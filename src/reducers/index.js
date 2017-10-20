@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
-import { removePost, fetchCategories, fetchPosts, createPost, fetchSinglePost } from '../actions'
+import { fetchCategories, fetchPosts, createPost, removePost, fetchPost } from '../actions'
 
 import {
-  REMOVE_POST,
-  RECEIVE_CATEGORIES,
-  RECEIVE_POSTS,
+  FETCH_CATEGORIES,
+  FETCH_POSTS,
   CREATE_POST,
-  FETCH_SINGLE_POST
+  REMOVE_POST,
+  FETCH_POST
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -16,7 +16,7 @@ function categories (state = {}, action) {
   const { categories } = action
 
   switch (action.type) {
-    case RECEIVE_CATEGORIES :
+    case FETCH_CATEGORIES :
       return categories ? categories : state
     default :
       return state
@@ -28,7 +28,7 @@ function posts (state = {}, action) {
   const { posts, post, id } = action
 
   switch (action.type) {
-    case RECEIVE_POSTS :
+    case FETCH_POSTS :
       return posts ? posts : state
     case REMOVE_POST :
       console.log('remove post')
@@ -54,7 +54,7 @@ function post (state = {}, action) {
   const { post } = action
 
   switch (action.type) {
-    case FETCH_SINGLE_POST :
+    case FETCH_POST :
       return post ? post : state
     default :
       return state

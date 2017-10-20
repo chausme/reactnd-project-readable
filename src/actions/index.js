@@ -6,10 +6,10 @@ const uuidv4 = require('uuid/v4');
 const postsSchema = new schema.Entity('posts');
 const postsListSchema = [ postsSchema ];
 
-export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
+export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 
 export const fetchCategoriesAction = categories => ({
-  type: RECEIVE_CATEGORIES,
+  type: FETCH_CATEGORIES,
   categories
 });
 
@@ -18,10 +18,10 @@ export const fetchCategories = () => dispatch => (
   .then(response => response.json()).then((categories => dispatch(fetchCategoriesAction(categories.categories))))
 );
 
-export const RECEIVE_POSTS = "RECEIVE_POSTS";
+export const FETCH_POSTS = "FETCH_POSTS";
 
 export const receivePosts = posts => ({
-  type: RECEIVE_POSTS,
+  type: FETCH_POSTS,
   posts
 });
 
@@ -32,16 +32,16 @@ export const fetchPosts = () => dispatch => (
   ))))
 );
 
-export const FETCH_SINGLE_POST = "FETCH_SINGLE_POST";
+export const FETCH_POST = "FETCH_SINGLE_POST";
 
-export const fetchSinglePostAction = post => ({
-  type: FETCH_SINGLE_POST,
+export const fetchPostAction = post => ({
+  type: FETCH_POST,
   post
 });
 
-export const fetchSinglePost = (id) => dispatch => (
-  Api.fetchSinglePost(id)
-  .then(response => response.json()).then((post => dispatch(fetchSinglePostAction(post))))
+export const fetchPost = (id) => dispatch => (
+  Api.fetchPost(id)
+  .then(response => response.json()).then((post => dispatch(fetchPostAction(post))))
 );
 
 export const CREATE_POST = "CREATE_POST";

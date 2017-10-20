@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-const capitalize = require('capitalize');
+const capitalize = require('capitalize')
 
 class Categories extends Component {
 
   render() {
 
-    let categories = this.props.categories;
+    let categories = this.props.categories
 
     return(
 

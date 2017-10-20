@@ -32,4 +32,4 @@ CreatePostForm = reduxForm({
   form: 'createPost'
 })(CreatePostForm)
 
-export default CreatePostForm;
+export default CreatePostForm

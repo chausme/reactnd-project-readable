@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-const capitalize = require('capitalize');
+const capitalize = require('capitalize')
 
 class Post extends Component {
 
@@ -31,4 +31,4 @@ class Post extends Component {
 
 }
 
-export default Post;
+export default Post
