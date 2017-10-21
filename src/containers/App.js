@@ -18,7 +18,7 @@ class App extends Component {
 
   render() {
 
-    const { categories, posts, createPost, removePost } = this.props
+    const { general, categories, posts, createPost, removePost } = this.props
 
     return (
       <div className="App">
@@ -38,7 +38,7 @@ class App extends Component {
 
             <Switch>
               <Route exact path='/create' render={() => (
-                <CreatePost categories={categories} createPost={createPost} />
+                <CreatePost categories={categories} general={general} createPost={createPost} />
               )}/>
               <Route exact path='/:category?' render={() => (
                 <Posts categories={categories} posts={posts} removePost={removePost} />
@@ -69,8 +69,9 @@ class App extends Component {
 
 }
 
-function mapStateToProps ({categories, posts}) {
+function mapStateToProps ({general, categories, posts}) {
   return {
+    general: general,
     categories: Object.values(categories),
     posts: Object.values(posts),
   }

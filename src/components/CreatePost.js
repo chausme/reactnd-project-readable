@@ -8,11 +8,17 @@ class CreatePost extends Component {
 
   render() {
 
-    const { categories, createPost } = this.props
+    const { general, categories, createPost } = this.props
+
+    console.log(this.props)
 
     return(
 
       <section className="row create-post">
+
+        {general.redirect && (
+          <Redirect to={'/' + general.redirect}/>
+        )}
 
         <div className="col-xs-12">
 

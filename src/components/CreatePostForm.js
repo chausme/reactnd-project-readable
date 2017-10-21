@@ -1,6 +1,5 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { BrowserRouter } from 'react-router-dom'
 
 const required = value => value ? undefined : 'Required'
 
@@ -53,12 +52,7 @@ let CreatePostForm = props => {
 
 CreatePostForm = reduxForm({
   // a unique name for the form
-  form: 'createPost',
-  onSubmitSuccess: (data) => {
-
-    console.log('redirect to ' + data.post.id)
-
-  },
+  form: 'createPost'
 })(CreatePostForm)
 
 export default CreatePostForm

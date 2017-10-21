@@ -11,6 +11,22 @@ import {
   FETCH_POST
 } from '../actions'
 
+function general (state = {redirect: false}, action) {
+
+  const { post } = action
+
+  switch (action.type) {
+      case CREATE_POST :
+        return {
+          ...state,
+          redirect: post.category + '/' + post.id
+        }
+    default :
+      return state
+  }
+
+}
+
 function categories (state = {}, action) {
 
   const { categories } = action
@@ -62,6 +78,7 @@ function post (state = {}, action) {
 }
 
 export default combineReducers({
+  general,
   categories,
   posts,
   post,
