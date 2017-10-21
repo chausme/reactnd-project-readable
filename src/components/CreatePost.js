@@ -8,7 +8,7 @@ class CreatePost extends Component {
 
   render() {
 
-    const {categories, createPost } = this.props
+    const { categories, createPost } = this.props
 
     return(
 

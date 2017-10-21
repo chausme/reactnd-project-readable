@@ -22,6 +22,7 @@ $blue-vlight:	    #dce7f0;
 $grey:            #a7a9ac;
 $grey-light:      #d3d4d5;
 $grey-vlight:     #f3f5f6;
+$red:             #ff0033;
 
 ////////////////////////////////////////////////////////////////////////////////
 // General styles
@@ -146,7 +147,7 @@ section {
 input[type="text"],
 textarea,
 select {
-  padding: 0 20px;
+  padding: 0 12px;
   width: 100%;
   height: 40px;
   border: 1px $grey solid;
@@ -154,16 +155,23 @@ select {
 
 textarea {
   height: 200px;
-  padding: 16px 20px;
+  padding: 12px;
 }
 
 select {
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 8px;
+  padding-right: 12px;
 }
 
 .field {
   margin-bottom: 16px;
+
+  span {
+    color: $red;
+    font-size: 0.8em;
+    display: block;
+    margin-top: 6px;
+  }
 }
 
 .comments {
