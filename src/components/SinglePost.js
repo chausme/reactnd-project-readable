@@ -10,9 +10,7 @@ const capitalize = require('capitalize')
 class SinglePost extends Component {
 
   componentDidMount() {
-
     this.props.fetchPost(this.props.match.params.id)
-
   }
 
   render() {
@@ -77,7 +75,7 @@ function mapStateToProps ({post}) {
 function mapDispatchToProps (dispatch) {
   return {
     removePost: (data) => dispatch(removePost(data)),
-    fetchPost: (data) => dispatch(fetchPost(data))
+    fetchPost: (data) => dispatch(fetchPost(data)),
   }
 }
 

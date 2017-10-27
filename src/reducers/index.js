@@ -21,6 +21,11 @@ function general (state = {redirect: false}, action) {
           ...state,
           redirect: post.category + '/' + post.id
         }
+        case FETCH_POST :
+          return {
+            ...state,
+            redirect: false
+          }
     default :
       return state
   }
