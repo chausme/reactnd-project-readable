@@ -1,14 +1,15 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
-import { fetchCategories, fetchPosts, createPost, removePost, fetchPost } from '../actions'
+import { fetchCategories, fetchPosts, createPost, removePost, fetchPost, updatePost } from '../actions'
 
 import {
   FETCH_CATEGORIES,
   FETCH_POSTS,
   CREATE_POST,
   REMOVE_POST,
-  FETCH_POST
+  FETCH_POST,
+  UPDATE_POST
 } from '../actions'
 
 function general (state = {redirect: false}, action) {
@@ -21,11 +22,16 @@ function general (state = {redirect: false}, action) {
           ...state,
           redirect: post.category + '/' + post.id
         }
-        case FETCH_POST :
-          return {
-            ...state,
-            redirect: false
-          }
+      case UPDATE_POST :
+        return {
+          ...state,
+          redirect: post.category + '/' + post.id
+        }
+      case FETCH_POST :
+        return {
+          ...state,
+          redirect: false
+        }
     default :
       return state
   }
@@ -60,11 +66,20 @@ function posts (state = {}, action) {
           deleted: true
         },
       }
-      case CREATE_POST :
-        return {
-          ...state,
-          [post.id]: post
+    case CREATE_POST :
+      return {
+        ...state,
+        [post.id]: post
+      }
+    case UPDATE_POST :
+      return {
+        ...state,
+        [post.id]: {
+          ...state[post.id],
+          title: post.title,
+          body: post.body,
         }
+      }
     default :
       return state
   }
@@ -80,6 +95,7 @@ function post (state = {}, action) {
     default :
       return state
   }
+
 }
 
 export default combineReducers({

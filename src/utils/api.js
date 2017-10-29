@@ -25,3 +25,15 @@ export const removePost = ({id}) => (
     }
   })
 )
+
+export const updatePost = (post) => {
+
+  return fetch('http://localhost:3001/posts/' + post.id, {
+      body: JSON.stringify(post),
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'dmfR05SBzsxn30'
+      }
+    })
+}

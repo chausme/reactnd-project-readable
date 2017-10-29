@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import { Route, Link, Switch } from 'react-router-dom'
 import Posts from '../components/Posts'
 import CreatePost from '../components/CreatePost'
+import EditPost from '../components/EditPost'
 import SinglePost from '../components/SinglePost'
-import { fetchCategories, fetchPosts, createPost, removePost } from '../actions'
+import { fetchCategories, fetchPosts, createPost, removePost, updatePost } from '../actions'
 import { withRouter } from 'react-router'
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
 
   render() {
 
-    const { general, categories, posts, createPost, removePost } = this.props
+    const { general, categories, posts, createPost, removePost, fetchPost, updatePost } = this.props
 
     return (
       <div className="App">
@@ -39,6 +40,9 @@ class App extends Component {
             <Switch>
               <Route exact path='/create' render={() => (
                 <CreatePost categories={categories} general={general} createPost={createPost} />
+              )}/>
+              <Route exact path='/:category/:id/edit' render={() => (
+                <EditPost general={general} updatePost={updatePost} />
               )}/>
               <Route exact path='/:category?' render={() => (
                 <Posts categories={categories} posts={posts} removePost={removePost} />
@@ -82,7 +86,8 @@ function mapDispatchToProps (dispatch) {
     fetchCategories: () => dispatch(fetchCategories()),
     fetchPosts: () => dispatch(fetchPosts()),
     createPost: (data) => dispatch(createPost(data)),
-    removePost: (data) => dispatch(removePost(data))
+    removePost: (data) => dispatch(removePost(data)),
+    updatePost: (data) => dispatch(updatePost(data))
   }
 }
 

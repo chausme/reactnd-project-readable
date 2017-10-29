@@ -15,6 +15,9 @@ class SinglePost extends Component {
 
   render() {
 
+    console.log(this.props)
+
+    const url = this.props.match.url
     const post = this.props.post
 
     let timestamp = new Date(post.timestamp)
@@ -44,7 +47,7 @@ class SinglePost extends Component {
               <input type="number" id={post.id} value={post.voteScore} />
             </span>
             <span>
-              <Link to={`/edit`}>Edit</Link> | <a href="#" onClick={() => removePost(post.id)}>Delete</a>
+              <Link to={url + '/edit'}>Edit</Link> | <a href="#" onClick={() => removePost(post.id)}>Delete</a>
             </span>
           </div>
 

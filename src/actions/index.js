@@ -71,3 +71,15 @@ export const removePost = ({id}) => dispatch => (
   Api.removePost({id})
   .then(response => response.json()).then((post => dispatch(removePostAction({id}))))
 );
+
+export const UPDATE_POST = 'UPDATE_POST'
+
+export const updatePostAction = post => ({
+  type: UPDATE_POST,
+  post
+});
+
+export const updatePost = (post) => dispatch => (
+  Api.updatePost(post)
+  .then(response => response.json()).then((post => dispatch(updatePostAction(post))))
+);
