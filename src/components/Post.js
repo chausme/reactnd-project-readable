@@ -19,8 +19,8 @@ class Post extends Component {
           <span>posted by {post.author} on {post.timestamp} in <Link to={`/${post.category}`}>{capitalize(post.category)}</Link> category</span>
           <span>0 comments</span>
           <span className="score">
-            <label htmlFor="8xf0y6ziyjabvozdd253nd">post score</label>
-            <input type="number" id="8xf0y6ziyjabvozdd253nd" defaultValue={post.voteScore} />
+            <label htmlFor={id}>post score</label>
+            <input type="number" id={id} defaultValue={post.voteScore} />
           </span>
           <button onClick={() => removePost({id})} className="btn btn-primary">Delete</button>
         </div>

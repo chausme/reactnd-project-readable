@@ -19,6 +19,8 @@ class SinglePost extends Component {
 
     const url = this.props.match.url
     const post = this.props.post
+    const id = post.id
+    const { removePost } = this.props
 
     let timestamp = new Date(post.timestamp)
 
@@ -31,9 +33,6 @@ class SinglePost extends Component {
     return(
 
       <section className="row single-post">
-        {post.deleted && (
-          <Redirect to={'/'}/>
-        )}
 
         <div className="col-xs-12">
 
@@ -43,11 +42,11 @@ class SinglePost extends Component {
             <span>posted by {post.author} on {postDate} in <Link to={`/${post.category}`}>{capitalize(String(post.category))}</Link> category</span>
             <span>0 comments</span>
             <span className="score">
-              <label htmlFor={post.id}>post score</label>
-              <input type="number" id={post.id} value={post.voteScore} />
+              <label htmlFor={id}>post score</label>
+              <input type="number" id={id} value={post.voteScore} />
             </span>
             <span>
-              <Link to={url + '/edit'}>Edit</Link> | <a href="#" onClick={() => removePost(post.id)}>Delete</a>
+              <Link to={url + '/edit'}>Edit</Link> | <Link to='/' onClick={() => removePost({id})}>Delete</Link>
             </span>
           </div>
 
@@ -71,7 +70,7 @@ class SinglePost extends Component {
 
 function mapStateToProps ({post}) {
   return {
-    post: post,
+    post: post
   }
 }
 
