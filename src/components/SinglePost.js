@@ -15,8 +15,6 @@ class SinglePost extends Component {
 
   render() {
 
-    console.log(this.props)
-
     const url = this.props.match.url
     const post = this.props.post
     const id = post.id
@@ -35,6 +33,8 @@ class SinglePost extends Component {
       <section className="row single-post">
 
         <div className="col-xs-12">
+
+        <a href="" onClick={() => this.props.history.go(-1)}>Back</a>
 
           <h2>{post.title}</h2>
 

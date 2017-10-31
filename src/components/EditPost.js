@@ -30,6 +30,8 @@ class EditPost extends Component {
 
         <div className="col-xs-12">
 
+          <a href="" onClick={() => this.props.history.go(-1)}>Back</a>
+
           <h2>Edit post</h2>
 
           <EditPostForm onSubmit={updatePost} />
