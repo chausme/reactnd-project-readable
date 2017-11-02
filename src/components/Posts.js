@@ -8,7 +8,7 @@ class Posts extends Component {
 
   render() {
 
-    const { categories, posts, removePost } = this.props
+    const { categories, posts, removePost, votePost } = this.props
 
     return(
 
@@ -23,7 +23,7 @@ class Posts extends Component {
             {posts.filter((post) => post.deleted === false).map((post) => (
 
               <Route exact path={`/:category(${post.category})*`} key={post.id} render={() => (
-                <Post post={post} removePost={removePost} />
+                <Post post={post} removePost={removePost} votePost={votePost} />
               )}/>
 
             ))}

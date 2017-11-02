@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
-import { fetchCategories, fetchPosts, createPost, removePost, fetchPost, updatePost } from '../actions'
+import { fetchCategories, fetchPosts, createPost, removePost, fetchPost, updatePost, votePost } from '../actions'
 
 import {
   FETCH_CATEGORIES,
@@ -9,7 +9,8 @@ import {
   CREATE_POST,
   REMOVE_POST,
   FETCH_POST,
-  UPDATE_POST
+  UPDATE_POST,
+  VOTE_POST
 } from '../actions'
 
 function general (state = {redirect: false}, action) {
@@ -58,7 +59,6 @@ function posts (state = {}, action) {
     case FETCH_POSTS :
       return posts ? posts : state
     case REMOVE_POST :
-      console.log('remove post')
       return {
         ...state,
         [id]: {
@@ -80,6 +80,14 @@ function posts (state = {}, action) {
           body: post.body,
         }
       }
+    case VOTE_POST :
+      return {
+        ...state,
+        [post.id]: {
+          ...state[post.id],
+          voteScore: post.voteScore,
+        }
+      }
     default :
       return state
   }
@@ -92,6 +100,11 @@ function post (state = {}, action) {
   switch (action.type) {
     case FETCH_POST :
       return post ? post : state
+    case VOTE_POST :
+      return {
+          ...state,
+          voteScore: post.voteScore,
+      }
     default :
       return state
   }

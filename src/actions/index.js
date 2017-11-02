@@ -83,3 +83,16 @@ export const updatePost = (post) => dispatch => (
   Api.updatePost(post)
   .then(response => response.json()).then((post => dispatch(updatePostAction(post))))
 );
+
+export const VOTE_POST = 'VOTE_POST'
+
+export const votePostAction = post => ({
+  type: VOTE_POST,
+  post
+});
+
+export const votePost = ({id, vote}) => dispatch => {
+
+  return Api.votePost({id, vote})
+  .then(response => response.json()).then((post => dispatch(votePostAction(post))))
+}

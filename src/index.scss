@@ -178,17 +178,10 @@ select {
 
 }
 
-.score {
+.vote-score {
 
   label {
-    margin-right: 8px;
-    text-transform: lowercase;
-  }
-
-  input[type="number"] {
-    width: 50px;
-    padding-left: 4px;
-    font-weight: 400;
+    margin: 0 12px;
   }
 
 }

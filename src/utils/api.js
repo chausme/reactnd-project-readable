@@ -37,3 +37,15 @@ export const updatePost = (post) => {
       }
     })
 }
+
+export const votePost = ({id, vote}) => {
+
+  return fetch('http://localhost:3001/posts/' + id, {
+      body: JSON.stringify({'option': vote}),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'dmfR05SBzsxn30'
+      }
+    })
+}
