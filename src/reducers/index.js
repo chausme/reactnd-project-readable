@@ -51,13 +51,16 @@ function categories (state = {}, action) {
   }
 }
 
-function posts (state = {}, action) {
+function posts (state = {sort: 'sortByVotes', posts}, action) {
 
   const { posts, post, id } = action
 
   switch (action.type) {
     case FETCH_POSTS :
-      return posts ? posts : state
+      return {
+        ...state,
+        posts: posts
+      }
     case REMOVE_POST :
       return {
         ...state,

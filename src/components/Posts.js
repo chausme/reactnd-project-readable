@@ -18,9 +18,12 @@ class Posts extends Component {
 
         <Sort />
 
+        {('posts' in posts) &&
+
         <div className="col-xs-12">
           <div className="row">
-            {posts.filter((post) => post.deleted === false).map((post) => (
+
+            {posts.posts.map((post) => (
 
               <Route exact path={`/:category(${post.category})*`} key={post.id} render={() => (
                 <Post post={post} removePost={removePost} votePost={votePost} />
@@ -28,9 +31,12 @@ class Posts extends Component {
 
             ))}
 
+
           </div>
         </div>
 
+        }
+        
         <div className="col-xs-12 text-center">
           <div className="row">
             <Link to="/create" className="btn btn-primary btn-success">Create a new post</Link>

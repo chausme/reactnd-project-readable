@@ -74,11 +74,33 @@ class App extends Component {
 }
 
 function mapStateToProps ({general, categories, posts}) {
+
+  function sortByVotes(a, b) {
+    return b.voteScore - a.voteScore
+  }
+
+  function sortByDate(a, b) {
+    return b.timestamp - a.timestamp
+  }
+
+  let filteredPosts;
+
+  // Check if posts have been fecthed
+  if (('posts' in posts)) {
+    filteredPosts = Object.values(posts.posts).filter((post) => post.deleted === false)
+    let sortBy = posts.sort;
+    filteredPosts.sort(sortBy)
+  }
+
   return {
     general: general,
     categories: Object.values(categories),
-    posts: Object.values(posts),
+    posts: {
+      sort: posts.sort,
+      posts: filteredPosts
+    },
   }
+
 }
 
 function mapDispatchToProps (dispatch) {
