@@ -5,7 +5,7 @@ import Posts from '../components/Posts'
 import CreatePost from '../components/CreatePost'
 import EditPost from '../components/EditPost'
 import SinglePost from '../components/SinglePost'
-import { fetchCategories, fetchPosts, createPost, removePost, updatePost, votePost, sortPosts } from '../actions'
+import { fetchCategories, fetchPosts, createPost, removePost, updatePost, votePost, sortPosts, fetchComments } from '../actions'
 import { withRouter } from 'react-router'
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
 
   render() {
 
-    const { general, categories, posts, createPost, removePost, fetchPost, updatePost, votePost, sortPosts } = this.props
+    const { general, categories, posts, createPost, removePost, fetchPost, updatePost, votePost, sortPosts, fetchComments } = this.props
 
     return (
       <div className="App">
@@ -94,8 +94,6 @@ function mapStateToProps ({general, categories, posts}) {
   if (('posts' in posts)) {
     filteredPosts = Object.values(posts.posts).filter((post) => post.deleted === false)
     sortBy(filteredPosts, posts.sort)
-    console.log(sortBy)
-    console.log(filteredPosts)
   }
 
   return {
@@ -118,6 +116,7 @@ function mapDispatchToProps (dispatch) {
     updatePost: (data) => dispatch(updatePost(data)),
     votePost: (data) => dispatch(votePost(data)),
     sortPosts: (data) => dispatch(sortPosts(data)),
+    fetchComments: (data) => dispatch(fetchComments(data)),
   }
 }
 

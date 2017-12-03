@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router'
-import { fetchPost, removePost, votePost } from '../actions'
+import { fetchPost, removePost, votePost, fetchComments } from '../actions'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import Comments from '../components/Comments'
 
 const capitalize = require('capitalize')
 
@@ -20,9 +21,10 @@ class SinglePost extends Component {
   render() {
 
     const url = this.props.match.url
-    const post = this.props.post
+    const post = this.props.post.post
     const id = post.id
-    const { removePost, votePost } = this.props
+    const comments = this.props.post.comments
+    const { removePost, votePost, fetchComments } = this.props
 
     let timestamp = new Date(post.timestamp)
 
@@ -59,11 +61,7 @@ class SinglePost extends Component {
             {post.body}
           </div>
 
-          <div className="comments">
-
-            [comments section]
-
-          </div>
+          <Comments comments={comments} />
 
         </div>
       </section>
@@ -75,7 +73,10 @@ class SinglePost extends Component {
 
 function mapStateToProps ({post}) {
   return {
-    post: post
+    post: {
+        post : post.post,
+        comments: post.comments
+    }
   }
 }
 
@@ -84,6 +85,7 @@ function mapDispatchToProps (dispatch) {
     removePost: (data) => dispatch(removePost(data)),
     fetchPost: (data) => dispatch(fetchPost(data)),
     votePost: (data) => dispatch(votePost(data)),
+    fetchComments: (data) => dispatch(fetchComments(data))
   }
 }
 

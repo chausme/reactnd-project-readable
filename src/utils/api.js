@@ -49,3 +49,7 @@ export const votePost = ({id, vote}) => {
       }
     })
 }
+
+export const fetchComments = (id) => (
+  fetch('http://localhost:3001/posts/' + id + '/comments', { headers: { 'Authorization': 'dmfR05SBzsxn30' }})
+)

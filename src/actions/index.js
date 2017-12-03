@@ -109,3 +109,15 @@ export const sortPosts = (sort) => dispatch => {
   return dispatch(sortPostsAction(sort))
 
 }
+
+export const FETCH_COMMENTS = "FETCH_COMMENTS";
+
+export const fetchCommentsAction = ({id}) => ({
+  type: FETCH_COMMENTS,
+  id
+});
+
+export const fetchComments = ({id}) => dispatch => (
+  Api.fetchComments({id})
+  .then(response => response.json()).then((post => dispatch(fetchCommentsAction({id}))))
+);
