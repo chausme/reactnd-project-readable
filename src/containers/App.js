@@ -5,7 +5,7 @@ import Posts from '../components/Posts'
 import CreatePost from '../components/CreatePost'
 import EditPost from '../components/EditPost'
 import SinglePost from '../components/SinglePost'
-import { fetchCategories, fetchPosts, createPost, removePost, updatePost, votePost } from '../actions'
+import { fetchCategories, fetchPosts, createPost, removePost, updatePost, votePost, sortPosts } from '../actions'
 import { withRouter } from 'react-router'
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
 
   render() {
 
-    const { general, categories, posts, createPost, removePost, fetchPost, updatePost, votePost } = this.props
+    const { general, categories, posts, createPost, removePost, fetchPost, updatePost, votePost, sortPosts } = this.props
 
     return (
       <div className="App">
@@ -45,7 +45,7 @@ class App extends Component {
                 <EditPost general={general} updatePost={updatePost} />
               )}/>
               <Route exact path='/:category?' render={() => (
-                <Posts categories={categories} posts={posts} removePost={removePost} votePost={votePost} />
+                <Posts categories={categories} posts={posts} removePost={removePost} votePost={votePost} sortPosts={sortPosts} />
               )}/>
 
               <Route exact path='/:category/:id' component={SinglePost} />
@@ -75,12 +75,17 @@ class App extends Component {
 
 function mapStateToProps ({general, categories, posts}) {
 
-  function sortByVotes(a, b) {
-    return b.voteScore - a.voteScore
-  }
+  function sortBy(posts, sort) {
 
-  function sortByDate(a, b) {
-    return b.timestamp - a.timestamp
+    if (sort == 'sortByVotes') {
+      posts.sort(function(a, b) {
+        return b.voteScore - a.voteScore;
+      });
+    } else if (sort == 'sortByDate') {
+      posts.sort(function(a, b) {
+        return b.timestamp - a.timestamp;
+      });
+    }
   }
 
   let filteredPosts;
@@ -88,8 +93,9 @@ function mapStateToProps ({general, categories, posts}) {
   // Check if posts have been fecthed
   if (('posts' in posts)) {
     filteredPosts = Object.values(posts.posts).filter((post) => post.deleted === false)
-    let sortBy = posts.sort;
-    filteredPosts.sort(sortBy)
+    sortBy(filteredPosts, posts.sort)
+    console.log(sortBy)
+    console.log(filteredPosts)
   }
 
   return {
@@ -110,7 +116,8 @@ function mapDispatchToProps (dispatch) {
     createPost: (data) => dispatch(createPost(data)),
     removePost: (data) => dispatch(removePost(data)),
     updatePost: (data) => dispatch(updatePost(data)),
-    votePost: (data) => dispatch(votePost(data))
+    votePost: (data) => dispatch(votePost(data)),
+    sortPosts: (data) => dispatch(sortPosts(data)),
   }
 }
 

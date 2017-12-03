@@ -8,7 +8,7 @@ class Posts extends Component {
 
   render() {
 
-    const { categories, posts, removePost, votePost } = this.props
+    const { categories, posts, removePost, votePost, sortPosts } = this.props
 
     return(
 
@@ -16,7 +16,7 @@ class Posts extends Component {
 
         <Categories categories={categories}/>
 
-        <Sort />
+        <Sort sortPosts={sortPosts} />
 
         {('posts' in posts) &&
 
@@ -36,7 +36,7 @@ class Posts extends Component {
         </div>
 
         }
-        
+
         <div className="col-xs-12 text-center">
           <div className="row">
             <Link to="/create" className="btn btn-primary btn-success">Create a new post</Link>
