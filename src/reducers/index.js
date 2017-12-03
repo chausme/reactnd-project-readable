@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
-import { fetchCategories, fetchPosts, createPost, removePost, fetchPost, updatePost, votePost } from '../actions'
+import { fetchCategories, fetchPosts, createPost, removePost, fetchPost, updatePost, votePost, sortPosts } from '../actions'
 
 import {
   FETCH_CATEGORIES,
@@ -10,7 +10,8 @@ import {
   REMOVE_POST,
   FETCH_POST,
   UPDATE_POST,
-  VOTE_POST
+  VOTE_POST,
+  SORT_POSTS
 } from '../actions'
 
 function general (state = {redirect: false}, action) {
@@ -51,13 +52,16 @@ function categories (state = {}, action) {
   }
 }
 
-function posts (state = {}, action) {
+function posts (state = {sort: 'sortByVotes', posts}, action) {
 
-  const { posts, post, id } = action
+  const { posts, post, id, sort } = action
 
   switch (action.type) {
     case FETCH_POSTS :
-      return posts ? posts : state
+      return {
+        ...state,
+        posts: posts
+      }
     case REMOVE_POST :
       return {
         ...state,
@@ -87,6 +91,12 @@ function posts (state = {}, action) {
           ...state[post.id],
           voteScore: post.voteScore,
         }
+      }
+    case SORT_POSTS :
+      console.log('log me reducer sort')
+      return {
+        ...state,
+        sort: sort
       }
     default :
       return state

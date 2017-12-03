@@ -8,7 +8,7 @@ class Posts extends Component {
 
   render() {
 
-    const { categories, posts, removePost, votePost } = this.props
+    const { categories, posts, removePost, votePost, sortPosts } = this.props
 
     return(
 
@@ -16,11 +16,14 @@ class Posts extends Component {
 
         <Categories categories={categories}/>
 
-        <Sort />
+        <Sort sortPosts={sortPosts} />
+
+        {('posts' in posts) &&
 
         <div className="col-xs-12">
           <div className="row">
-            {posts.filter((post) => post.deleted === false).map((post) => (
+
+            {posts.posts.map((post) => (
 
               <Route exact path={`/:category(${post.category})*`} key={post.id} render={() => (
                 <Post post={post} removePost={removePost} votePost={votePost} />
@@ -28,8 +31,11 @@ class Posts extends Component {
 
             ))}
 
+
           </div>
         </div>
+
+        }
 
         <div className="col-xs-12 text-center">
           <div className="row">
