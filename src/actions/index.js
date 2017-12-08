@@ -32,7 +32,7 @@ export const fetchPosts = () => dispatch => (
   ))))
 );
 
-export const FETCH_POST = "FETCH_SINGLE_POST";
+export const FETCH_POST = "FETCH_POST";
 
 export const fetchPostAction = post => ({
   type: FETCH_POST,
@@ -112,12 +112,22 @@ export const sortPosts = (sort) => dispatch => {
 
 export const FETCH_COMMENTS = "FETCH_COMMENTS";
 
-export const fetchCommentsAction = ({id}) => ({
+export const fetchCommentsAction = comments => ({
   type: FETCH_COMMENTS,
-  id
+  comments
 });
 
-export const fetchComments = ({id}) => dispatch => (
-  Api.fetchComments({id})
-  .then(response => response.json()).then((post => dispatch(fetchCommentsAction({id}))))
+export const fetchComments = (id) => dispatch => (
+  Api.fetchComments(id)
+  .then(response => response.json()).then((comments => dispatch(fetchCommentsAction(comments))))
+);
+
+export const removeComment = (id) => dispatch => (
+  Api.fetchComments(id)
+  .then(response => response.json()).then((comments => dispatch(fetchCommentsAction(comments))))
+);
+
+export const voteComment = (id) => dispatch => (
+  Api.fetchComments(id)
+  .then(response => response.json()).then((comments => dispatch(fetchCommentsAction(comments))))
 );

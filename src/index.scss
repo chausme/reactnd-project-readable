@@ -70,6 +70,12 @@ h2 {
   margin-bottom: 24px;
 }
 
+h3 {
+  color: $blue;
+  font-size: 1.5em;
+  margin-bottom: 18px;
+}
+
 header {
   background: $blue-vlight;
   padding: 20px 0;
@@ -139,7 +145,8 @@ section {
   margin: 16px 0;
 }
 
-.post-meta {
+.post-meta,
+.comment-meta {
   padding: 12px 0 8px 0;
   font-size: 0.9em;
   font-weight: 700;
@@ -181,6 +188,19 @@ select {
 
 .comments {
 
+  .comment-wrap {
+    border-bottom: 1px $grey-vlight solid;
+    margin: 18px 0;
+    padding: 8px 0 36px 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.comment-entry {
+  padding-top: 32px;
 }
 
 .vote-score {

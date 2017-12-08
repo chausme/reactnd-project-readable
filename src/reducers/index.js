@@ -103,7 +103,7 @@ function posts (state = {sort: 'sortByVotes', posts}, action) {
   }
 }
 
-function post (state = {post, comments: 'comments will be here'}, action) {
+function post (state = {post}, action) {
 
   const { post, comments } = action
 
@@ -116,11 +116,7 @@ function post (state = {post, comments: 'comments will be here'}, action) {
     case FETCH_COMMENTS :
       return {
         ...state,
-        post: {
-          ...state,
-          comments: comments
-        }
-
+        comments: comments
       }
     case VOTE_POST :
       return {

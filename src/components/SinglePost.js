@@ -16,6 +16,7 @@ class SinglePost extends Component {
 
   componentDidMount() {
     this.props.fetchPost(this.props.match.params.id)
+    this.props.fetchComments(this.props.match.params.id)
   }
 
   render() {
@@ -61,7 +62,7 @@ class SinglePost extends Component {
             {post.body}
           </div>
 
-          <Comments comments={comments} />
+          <Comments comments={comments} url={url} />
 
         </div>
       </section>
