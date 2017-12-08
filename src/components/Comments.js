@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { removeComment, voteComment } from '../actions'
 import Comment from '../components/Comment'
+import { Link } from 'react-router-dom'
 
 class Comments extends Component {
 
   render() {
 
     const { url, comments } = this.props
-
-    console.log(comments);
 
     return(
 
@@ -21,6 +20,10 @@ class Comments extends Component {
             <Comment comment={comment} removeComment={removeComment} voteComment={voteComment} key={comment.id} url={url} />
 
           ))}
+
+          <div className="text-center">
+            <Link to={`/add-comment${url}`} className="btn btn-primary btn-success">Add comment</Link>
+          </div>
 
         </div>
 

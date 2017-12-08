@@ -20,8 +20,6 @@ class Comment extends Component {
 
     let commentDate = timestamp.toLocaleTimeString("en-us", options)
 
-    console.log(comment);
-
     return(
 
       <div className="comment-wrap">
@@ -38,7 +36,7 @@ class Comment extends Component {
                 <button onClick={() => this.voteClicker(id, 'upVote')} className="btn btn-primary">&uarr;</button>
               </span>
               <span>
-                <a href="" onClick={() => removeComment({id})}>Delete</a>
+                <Link to={url + '/edit-comment'}>Edit</Link> | <a href="" onClick={() => removeComment({id})}>Delete</a>
               </span>
             </div>
 

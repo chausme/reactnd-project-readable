@@ -122,6 +122,32 @@ export const fetchComments = (id) => dispatch => (
   .then(response => response.json()).then((comments => dispatch(fetchCommentsAction(comments))))
 );
 
+export const CREATE_COMMENT = "CREATE_COMMENT";
+
+export const createCommentAction = ({comment, category}) => ({
+  type: CREATE_COMMENT,
+  comment,
+  category
+});
+
+export const createComment = (comment) => dispatch => {
+
+  comment.id = uuidv4()
+  comment.timestamp = + new Date()
+  let category = comment.category
+
+  return Api.createComment(comment)
+  .then(response => response.json()).then((comment => dispatch(createCommentAction({comment, category}))))
+
+}
+
+export const UPDATE_COMMENT = "UPDATE_COMMENT";
+
+export const updateComment = (id) => dispatch => (
+  Api.fetchComments(id)
+  .then(response => response.json()).then((comments => dispatch(fetchCommentsAction(comments))))
+);
+
 export const removeComment = (id) => dispatch => (
   Api.fetchComments(id)
   .then(response => response.json()).then((comments => dispatch(fetchCommentsAction(comments))))

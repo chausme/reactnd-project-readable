@@ -53,3 +53,14 @@ export const votePost = ({id, vote}) => {
 export const fetchComments = (id) => (
   fetch('http://localhost:3001/posts/' + id + '/comments', { headers: { 'Authorization': 'dmfR05SBzsxn30' }})
 )
+
+export const createComment = (comment) => (
+  fetch('http://localhost:3001/comments', {
+    body: JSON.stringify(comment),
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'dmfR05SBzsxn30'
+    }
+  })
+)

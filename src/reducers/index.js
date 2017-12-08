@@ -1,7 +1,19 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
-import { fetchCategories, fetchPosts, createPost, removePost, fetchPost, updatePost, votePost, sortPosts, fetchComments } from '../actions'
+import {
+  fetchCategories,
+  fetchPosts,
+  createPost,
+  removePost,
+  fetchPost,
+  updatePost,
+  votePost,
+  sortPosts,
+  fetchComments,
+  createComment,
+  updateComment
+} from '../actions'
 
 import {
   FETCH_CATEGORIES,
@@ -13,11 +25,13 @@ import {
   VOTE_POST,
   SORT_POSTS,
   FETCH_COMMENTS,
+  CREATE_COMMENT,
+  UPDATE_COMMENT
 } from '../actions'
 
 function general (state = {redirect: false}, action) {
 
-  const { post } = action
+  const { post, comment, category } = action
 
   switch (action.type) {
       case CREATE_POST :
@@ -34,6 +48,11 @@ function general (state = {redirect: false}, action) {
         return {
           ...state,
           redirect: false
+        }
+      case CREATE_COMMENT :
+        return {
+          ...state,
+          redirect: category + '/' + comment.parentId
         }
     default :
       return state
@@ -105,7 +124,7 @@ function posts (state = {sort: 'sortByVotes', posts}, action) {
 
 function post (state = {post}, action) {
 
-  const { post, comments } = action
+  const { post, comments, comment } = action
 
   switch (action.type) {
     case FETCH_POST :
@@ -113,15 +132,34 @@ function post (state = {post}, action) {
         ...state,
         post: post
       }
+    case VOTE_POST :
+      return {
+        ...state,
+        voteScore: post.voteScore,
+      }
     case FETCH_COMMENTS :
       return {
         ...state,
         comments: comments
       }
-    case VOTE_POST :
+    case CREATE_COMMENT :
       return {
+        ...state,
+        comments: [
+          ...state.comments,
+          [comment.id]: comment
+        ]
+      }
+    case UPDATE_COMMENT :
+      return {
+        ...state,
+        comments: {
           ...state,
-          voteScore: post.voteScore,
+          [comment.id]: {
+            ...state[comment.id],
+            body: comment.body
+          }
+        }
       }
     default :
       return state
