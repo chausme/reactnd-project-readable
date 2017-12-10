@@ -157,7 +157,7 @@ function mapDispatchToProps (dispatch) {
     sortPosts: (data) => dispatch(sortPosts(data)),
     fetchComments: (data) => dispatch(fetchComments(data)),
     createComment: (data) => dispatch(createComment(data)),
-    updateComment: (data) => dispatch(updateComment(data)),
+    updateComment: (data) => dispatch(updateComment(data))
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router'
-import { fetchPost, removePost, votePost, fetchComments } from '../actions'
+import { fetchPost, removePost, votePost, fetchComments, removeComment } from '../actions'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import Comments from '../components/Comments'
@@ -25,7 +25,7 @@ class SinglePost extends Component {
     const post = this.props.post.post
     const id = post.id
     const comments = this.props.post.comments
-    const { removePost, votePost, fetchComments } = this.props
+    const { removePost, votePost, fetchComments, removeComment } = this.props
 
     let timestamp = new Date(post.timestamp)
 
@@ -34,8 +34,6 @@ class SinglePost extends Component {
     }
 
     let postDate = timestamp.toLocaleTimeString("en-us", options)
-
-    console.log(this.props)
 
     return(
 
@@ -64,7 +62,7 @@ class SinglePost extends Component {
             {post.body}
           </div>
 
-          <Comments comments={comments} url={url} />
+          <Comments comments={comments} url={url} removeComment={removeComment} />
 
         </div>
       </section>
@@ -79,7 +77,7 @@ function mapStateToProps ({post}) {
   let filteredComments;
 
   if (('comments' in post)) {
-    filteredComments = Object.values(post.comments)
+    filteredComments = Object.values(post.comments).filter((comment) => comment.deleted === false)
   }
 
   return {
@@ -95,7 +93,8 @@ function mapDispatchToProps (dispatch) {
     removePost: (data) => dispatch(removePost(data)),
     fetchPost: (data) => dispatch(fetchPost(data)),
     votePost: (data) => dispatch(votePost(data)),
-    fetchComments: (data) => dispatch(fetchComments(data))
+    fetchComments: (data) => dispatch(fetchComments(data)),
+    removeComment: (data) => dispatch(removeComment(data))
   }
 }
 

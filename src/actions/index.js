@@ -119,7 +119,16 @@ export const fetchCommentsAction = comments => ({
 
 export const fetchComments = (id) => dispatch => (
   Api.fetchComments(id)
-  .then(response => response.json()).then((comments => dispatch(fetchCommentsAction(comments))))
+  .then(response => response.json()).then((comments => {
+
+    let commentsObject = comments.reduce((comments, comment) => {
+      comments[comment.id] = comment;
+      return comments;
+    },{})
+
+    return dispatch(fetchCommentsAction(commentsObject))
+
+  }))
 );
 
 export const CREATE_COMMENT = "CREATE_COMMENT";
@@ -171,9 +180,16 @@ export const updateComment = (comment) => dispatch => {
 
 }
 
-export const removeComment = (id) => dispatch => (
-  Api.fetchComments(id)
-  .then(response => response.json()).then((comments => dispatch(fetchCommentsAction(comments))))
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'
+
+export const removeCommentAction = (comment) => ({
+  type: REMOVE_COMMENT,
+  comment
+});
+
+export const removeComment = ({id}) => dispatch => (
+  Api.removeComment({id})
+  .then(response => response.json()).then((comment => dispatch(removeCommentAction(comment))))
 );
 
 export const voteComment = (id) => dispatch => (

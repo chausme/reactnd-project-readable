@@ -7,7 +7,7 @@ class Comments extends Component {
 
   render() {
 
-    const { url, comments } = this.props
+    const { url, comments, removeComment } = this.props
 
     console.log(comments)
 
@@ -19,7 +19,7 @@ class Comments extends Component {
 
           {(comments) && comments.map((comment) => (
 
-            <Comment comment={comment} removeComment={removeComment} voteComment={voteComment} key={comment.id} url={url} />
+            <Comment comment={comment} removeComment={removeComment} removeComment={removeComment} voteComment={voteComment} key={comment.id} url={url} />
 
           ))}
 

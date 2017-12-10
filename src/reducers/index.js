@@ -13,7 +13,8 @@ import {
   fetchComments,
   createComment,
   updateComment,
-  fetchComment
+  fetchComment,
+  removeComment
 } from '../actions'
 
 import {
@@ -28,7 +29,8 @@ import {
   FETCH_COMMENTS,
   CREATE_COMMENT,
   UPDATE_COMMENT,
-  FETCH_COMMENT
+  FETCH_COMMENT,
+  REMOVE_COMMENT
 } from '../actions'
 
 function general (state = {redirect: false}, action) {
@@ -93,7 +95,7 @@ function posts (state = {sort: 'sortByVotes', posts}, action) {
       return {
         ...state,
         [id]: {
-        ...state[id],
+          ...state[id],
           deleted: true
         },
       }
@@ -147,10 +149,7 @@ function post (state = {post}, action) {
     case FETCH_COMMENTS :
       return {
         ...state,
-        comments: comments.reduce((comments, comment) => {
-          comments[comment.id] = comment;
-          return comments;
-        },{})
+        comments: comments
       }
     case CREATE_COMMENT :
       return {
@@ -169,6 +168,17 @@ function post (state = {post}, action) {
             ...state[comment.id],
             body: comment.body,
             timestamp: comment.timestamp
+          }
+        }
+      }
+    case REMOVE_COMMENT :
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          [comment.id]: {
+            ...state.comments[comment.id],
+            deleted: comment.deleted
           }
         }
       }

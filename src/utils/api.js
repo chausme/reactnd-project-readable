@@ -80,3 +80,12 @@ export const updateComment = (comment) => {
       }
     })
 }
+
+export const removeComment = ({id}) => (
+  fetch('http://localhost:3001/comments/' + id, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': 'dmfR05SBzsxn30'
+    }
+  })
+)

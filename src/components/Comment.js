@@ -36,7 +36,7 @@ class Comment extends Component {
                 <button onClick={() => this.voteClicker(id, 'upVote')} className="btn btn-primary">&uarr;</button>
               </span>
               <span>
-                <Link to={`/edit-comment${url}/${comment.id}`}>Edit</Link> | <a href="" onClick={() => removeComment({id})}>Delete</a>
+                <Link to={`/edit-comment${url}/${id}`}>Edit</Link> | <Link to='#' onClick={() => removeComment({id})}>Delete</Link>
               </span>
             </div>
 
