@@ -85,8 +85,8 @@ class App extends Component {
                 <AddComment general={general} createComment={createComment} {...props} />
               )}/>
 
-              <Route exact path='/:category/:id/edit-comment' render={() => (
-                <EditComment general={general} updateComment={updateComment} />
+              <Route exact path='/edit-comment/:category/:id/:commentId' render={(props) => (
+                <EditComment general={general} updateComment={updateComment} {...props} />
               )}/>
 
             </Switch>

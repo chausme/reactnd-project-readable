@@ -35,6 +35,8 @@ class SinglePost extends Component {
 
     let postDate = timestamp.toLocaleTimeString("en-us", options)
 
+    console.log(this.props)
+
     return(
 
       <section className="row single-post">
@@ -73,10 +75,17 @@ class SinglePost extends Component {
 }
 
 function mapStateToProps ({post}) {
+
+  let filteredComments;
+
+  if (('comments' in post)) {
+    filteredComments = Object.values(post.comments)
+  }
+
   return {
     post: {
         post : post.post,
-        comments: post.comments
+        comments: filteredComments
     }
   }
 }

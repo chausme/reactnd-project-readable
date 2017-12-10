@@ -141,12 +141,35 @@ export const createComment = (comment) => dispatch => {
 
 }
 
-export const UPDATE_COMMENT = "UPDATE_COMMENT";
+export const FETCH_COMMENT = "FETCH_COMMENT";
 
-export const updateComment = (id) => dispatch => (
-  Api.fetchComments(id)
-  .then(response => response.json()).then((comments => dispatch(fetchCommentsAction(comments))))
+export const fetchCommentAction = comment => ({
+  type: FETCH_COMMENT,
+  comment
+});
+
+export const fetchComment = (id) => dispatch => (
+  Api.fetchComment(id)
+  .then(response => response.json()).then((comment => dispatch(fetchCommentAction(comment))))
 );
+
+export const UPDATE_COMMENT = 'UPDATE_COMMENT'
+
+export const updateCommentAction = ({comment, category}) => ({
+  type: UPDATE_COMMENT,
+  comment,
+  category
+});
+
+export const updateComment = (comment) => dispatch => {
+
+  comment.timestamp = + new Date()
+  let category = comment.category
+
+  return Api.updateComment(comment)
+  .then(response => response.json()).then((comment => dispatch(updateCommentAction({comment, category}))))
+
+}
 
 export const removeComment = (id) => dispatch => (
   Api.fetchComments(id)

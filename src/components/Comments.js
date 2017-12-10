@@ -9,6 +9,8 @@ class Comments extends Component {
 
     const { url, comments } = this.props
 
+    console.log(comments)
+
     return(
 
         <div className="comments">

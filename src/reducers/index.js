@@ -12,7 +12,8 @@ import {
   sortPosts,
   fetchComments,
   createComment,
-  updateComment
+  updateComment,
+  fetchComment
 } from '../actions'
 
 import {
@@ -26,7 +27,8 @@ import {
   SORT_POSTS,
   FETCH_COMMENTS,
   CREATE_COMMENT,
-  UPDATE_COMMENT
+  UPDATE_COMMENT,
+  FETCH_COMMENT
 } from '../actions'
 
 function general (state = {redirect: false}, action) {
@@ -54,8 +56,13 @@ function general (state = {redirect: false}, action) {
           ...state,
           redirect: category + '/' + comment.parentId
         }
-    default :
-      return state
+      case UPDATE_COMMENT :
+        return {
+          ...state,
+          redirect: category + '/' + comment.parentId
+        }
+      default :
+        return state
   }
 
 }
@@ -140,15 +147,18 @@ function post (state = {post}, action) {
     case FETCH_COMMENTS :
       return {
         ...state,
-        comments: comments
+        comments: comments.reduce((comments, comment) => {
+          comments[comment.id] = comment;
+          return comments;
+        },{})
       }
     case CREATE_COMMENT :
       return {
         ...state,
-        comments: [
+        comments: {
           ...state.comments,
           [comment.id]: comment
-        ]
+        }
       }
     case UPDATE_COMMENT :
       return {
@@ -157,7 +167,8 @@ function post (state = {post}, action) {
           ...state,
           [comment.id]: {
             ...state[comment.id],
-            body: comment.body
+            body: comment.body,
+            timestamp: comment.timestamp
           }
         }
       }
@@ -167,10 +178,26 @@ function post (state = {post}, action) {
 
 }
 
+function comment (state = {}, action) {
+
+  const { comment } = action
+
+  switch (action.type) {
+    case FETCH_COMMENT :
+      return {
+        ...state,
+        comment: comment
+      }
+    default :
+      return state
+  }
+}
+
 export default combineReducers({
   general,
   categories,
   posts,
   post,
+  comment,
   form: formReducer
 })

@@ -20,33 +20,31 @@ const renderTextarea = ({ input, label, meta: { touched, error, warning } }) => 
 
 const parentId = this.props
 
-let AddCommentForm = (props) => {
+let EditCommentForm = (props) => {
   const { handleSubmit, parentId, category } = props
   return (
     <form onSubmit={handleSubmit}>
       <div className="field">
         <Field name="body" component={renderTextarea} validate={required} label="Enter your text here..." />
       </div>
-      <div className="field">
-        <Field name="author" component={renderInput} type="text" validate={required} label="Author" />
-      </div>
       <button type="submit" className="btn btn-primary btn-success">Create</button>
     </form>
   )
 }
 
-AddCommentForm = reduxForm({
+EditCommentForm = reduxForm({
   form: 'createComment',
   enableReinitialize: true
-})(AddCommentForm)
+})(EditCommentForm)
 
-AddCommentForm = connect(
+EditCommentForm = connect(
   state => ({
     initialValues: {
+      ...state.comment.comment,
       parentId: state.post.post.id,
       category: state.post.post.category
     }
   }),
-)(AddCommentForm)
+)(EditCommentForm)
 
-export default AddCommentForm
+export default EditCommentForm
