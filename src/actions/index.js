@@ -204,3 +204,16 @@ export const voteComment = ({id, vote}) => dispatch => {
   return Api.voteComment({id, vote})
   .then(response => response.json()).then((comment => dispatch(voteCommentAction(comment))))
 }
+
+export const SORT_COMMENTS = 'SORT_COMMENTS'
+
+export const sortCommentsAction = sort => ({
+  type: SORT_COMMENTS,
+  sort
+});
+
+export const sortComments = (sort) => dispatch => {
+
+  return dispatch(sortCommentsAction(sort))
+
+}

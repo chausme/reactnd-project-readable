@@ -15,7 +15,8 @@ import {
   updateComment,
   fetchComment,
   removeComment,
-  voteComment
+  voteComment,
+  sortComments
 } from '../actions'
 
 import {
@@ -32,7 +33,8 @@ import {
   UPDATE_COMMENT,
   FETCH_COMMENT,
   REMOVE_COMMENT,
-  VOTE_COMMENT
+  VOTE_COMMENT,
+  SORT_COMMENTS
 } from '../actions'
 
 function general (state = {redirect: false}, action) {
@@ -135,7 +137,7 @@ function posts (state = {sort: 'sortByVotes', posts}, action) {
 
 function post (state = {post}, action) {
 
-  const { post, comments, comment } = action
+  const { post, comments, comment, sort } = action
 
   switch (action.type) {
     case FETCH_POST :
@@ -151,6 +153,17 @@ function post (state = {post}, action) {
           voteScore: post.voteScore
         }
       }
+    default :
+      return state
+  }
+
+}
+
+function comments (state = {sort: 'sortByVotes', comments}, action) {
+
+  const { comments, comment, sort } = action
+
+  switch (action.type) {
     case FETCH_COMMENTS :
       return {
         ...state,
@@ -198,6 +211,11 @@ function post (state = {post}, action) {
           }
         }
       }
+    case SORT_COMMENTS :
+      return {
+        ...state,
+        sort: sort
+      }
     default :
       return state
   }
@@ -224,6 +242,7 @@ export default combineReducers({
   categories,
   posts,
   post,
+  comments,
   comment,
   form: formReducer
 })
