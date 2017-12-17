@@ -192,7 +192,15 @@ export const removeComment = ({id}) => dispatch => (
   .then(response => response.json()).then((comment => dispatch(removeCommentAction(comment))))
 );
 
-export const voteComment = (id) => dispatch => (
-  Api.fetchComments(id)
-  .then(response => response.json()).then((comments => dispatch(fetchCommentsAction(comments))))
-);
+export const VOTE_COMMENT = 'VOTE_COMMENT'
+
+export const voteCommentAction = comment => ({
+  type: VOTE_COMMENT,
+  comment
+});
+
+export const voteComment = ({id, vote}) => dispatch => {
+
+  return Api.voteComment({id, vote})
+  .then(response => response.json()).then((comment => dispatch(voteCommentAction(comment))))
+}

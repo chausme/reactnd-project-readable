@@ -14,7 +14,8 @@ import {
   createComment,
   updateComment,
   fetchComment,
-  removeComment
+  removeComment,
+  voteComment
 } from '../actions'
 
 import {
@@ -30,7 +31,8 @@ import {
   CREATE_COMMENT,
   UPDATE_COMMENT,
   FETCH_COMMENT,
-  REMOVE_COMMENT
+  REMOVE_COMMENT,
+  VOTE_COMMENT
 } from '../actions'
 
 function general (state = {redirect: false}, action) {
@@ -144,7 +146,10 @@ function post (state = {post}, action) {
     case VOTE_POST :
       return {
         ...state,
-        voteScore: post.voteScore,
+        post: {
+          ...state.post,
+          voteScore: post.voteScore
+        }
       }
     case FETCH_COMMENTS :
       return {
@@ -179,6 +184,17 @@ function post (state = {post}, action) {
           [comment.id]: {
             ...state.comments[comment.id],
             deleted: comment.deleted
+          }
+        }
+      }
+    case VOTE_COMMENT :
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          [comment.id]: {
+            ...state.comments[comment.id],
+            voteScore: comment.voteScore
           }
         }
       }

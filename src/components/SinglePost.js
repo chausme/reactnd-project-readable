@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router'
-import { fetchPost, removePost, votePost, fetchComments, removeComment } from '../actions'
+import { fetchPost, removePost, votePost, fetchComments, removeComment, voteComment } from '../actions'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import Comments from '../components/Comments'
@@ -25,7 +25,7 @@ class SinglePost extends Component {
     const post = this.props.post.post
     const id = post.id
     const comments = this.props.post.comments
-    const { removePost, votePost, fetchComments, removeComment } = this.props
+    const { removePost, votePost, fetchComments, removeComment, voteComment } = this.props
 
     let timestamp = new Date(post.timestamp)
 
@@ -62,7 +62,7 @@ class SinglePost extends Component {
             {post.body}
           </div>
 
-          <Comments comments={comments} url={url} removeComment={removeComment} />
+          <Comments comments={comments} url={url} removeComment={removeComment} voteComment={voteComment} />
 
         </div>
       </section>
@@ -94,7 +94,8 @@ function mapDispatchToProps (dispatch) {
     fetchPost: (data) => dispatch(fetchPost(data)),
     votePost: (data) => dispatch(votePost(data)),
     fetchComments: (data) => dispatch(fetchComments(data)),
-    removeComment: (data) => dispatch(removeComment(data))
+    removeComment: (data) => dispatch(removeComment(data)),
+    voteComment: (data) => dispatch(voteComment(data))
   }
 }
 

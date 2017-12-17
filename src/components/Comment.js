@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 
 class Comment extends Component {
 
-  voteClicker(id, vote){
-    //this.props.votePost({id, vote});
+  commentVoteClicker(id, vote) {
+    this.props.voteComment({id, vote})
   }
 
   render() {
 
-    const { comment, removeComment, voteComment, url } = this.props
+    const { comment, url, removeComment, voteComment } = this.props
     const id = comment.id
 
     let timestamp = new Date(comment.timestamp)
@@ -31,9 +31,9 @@ class Comment extends Component {
             <div className="comment-meta">
               <span>Comment posted by {comment.author} on {commentDate}</span>
               <span className="vote-score">
-                <button onClick={() => this.voteClicker(id, 'downVote')} className="btn btn-primary">&darr;</button>
+                <button onClick={() => this.commentVoteClicker(id, 'downVote')} className="btn btn-primary">&darr;</button>
                 <label>{comment.voteScore}</label>
-                <button onClick={() => this.voteClicker(id, 'upVote')} className="btn btn-primary">&uarr;</button>
+                <button onClick={() => this.commentVoteClicker(id, 'upVote')} className="btn btn-primary">&uarr;</button>
               </span>
               <span>
                 <Link to={`/edit-comment${url}/${id}`}>Edit</Link> | <Link to='#' onClick={() => removeComment({id})}>Delete</Link>

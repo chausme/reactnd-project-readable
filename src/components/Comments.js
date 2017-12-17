@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { removeComment, voteComment } from '../actions'
 import Comment from '../components/Comment'
 import { Link } from 'react-router-dom'
 
@@ -7,9 +6,7 @@ class Comments extends Component {
 
   render() {
 
-    const { url, comments, removeComment } = this.props
-
-    console.log(comments)
+    const { url, comments, removeComment, voteComment } = this.props
 
     return(
 
@@ -19,7 +16,7 @@ class Comments extends Component {
 
           {(comments) && comments.map((comment) => (
 
-            <Comment comment={comment} removeComment={removeComment} removeComment={removeComment} voteComment={voteComment} key={comment.id} url={url} />
+            <Comment comment={comment} removeComment={removeComment} voteComment={voteComment} key={comment.id} url={url} />
 
           ))}
 

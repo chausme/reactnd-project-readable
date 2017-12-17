@@ -89,3 +89,15 @@ export const removeComment = ({id}) => (
     }
   })
 )
+
+export const voteComment = ({id, vote}) => {
+
+  return fetch('http://localhost:3001/comments/' + id, {
+      body: JSON.stringify({'option': vote}),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'dmfR05SBzsxn30'
+      }
+    })
+}
