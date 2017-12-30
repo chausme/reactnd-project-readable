@@ -16,7 +16,7 @@ class Posts extends Component {
 
         <Categories categories={categories}/>
 
-        <Sort sortPosts={sortPosts} />
+        <Sort sortItems={sortPosts} />
 
         {('posts' in posts) &&
 

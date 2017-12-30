@@ -1,7 +1,23 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
-import { fetchCategories, fetchPosts, createPost, removePost, fetchPost, updatePost, votePost, sortPosts } from '../actions'
+import {
+  fetchCategories,
+  fetchPosts,
+  createPost,
+  removePost,
+  fetchPost,
+  updatePost,
+  votePost,
+  sortPosts,
+  fetchComments,
+  createComment,
+  updateComment,
+  fetchComment,
+  removeComment,
+  voteComment,
+  sortComments
+} from '../actions'
 
 import {
   FETCH_CATEGORIES,
@@ -11,12 +27,19 @@ import {
   FETCH_POST,
   UPDATE_POST,
   VOTE_POST,
-  SORT_POSTS
+  SORT_POSTS,
+  FETCH_COMMENTS,
+  CREATE_COMMENT,
+  UPDATE_COMMENT,
+  FETCH_COMMENT,
+  REMOVE_COMMENT,
+  VOTE_COMMENT,
+  SORT_COMMENTS
 } from '../actions'
 
 function general (state = {redirect: false}, action) {
 
-  const { post } = action
+  const { post, comment, category } = action
 
   switch (action.type) {
       case CREATE_POST :
@@ -34,8 +57,18 @@ function general (state = {redirect: false}, action) {
           ...state,
           redirect: false
         }
-    default :
-      return state
+      case CREATE_COMMENT :
+        return {
+          ...state,
+          redirect: category + '/' + comment.parentId
+        }
+      case UPDATE_COMMENT :
+        return {
+          ...state,
+          redirect: category + '/' + comment.parentId
+        }
+      default :
+        return state
   }
 
 }
@@ -66,7 +99,7 @@ function posts (state = {sort: 'sortByVotes', posts}, action) {
       return {
         ...state,
         [id]: {
-        ...state[id],
+          ...state[id],
           deleted: true
         },
       }
@@ -93,7 +126,6 @@ function posts (state = {sort: 'sortByVotes', posts}, action) {
         }
       }
     case SORT_POSTS :
-      console.log('log me reducer sort')
       return {
         ...state,
         sort: sort
@@ -103,17 +135,23 @@ function posts (state = {sort: 'sortByVotes', posts}, action) {
   }
 }
 
-function post (state = {}, action) {
+function post (state = {post}, action) {
 
-  const { post } = action
+  const { post, comments, comment, sort } = action
 
   switch (action.type) {
     case FETCH_POST :
-      return post ? post : state
+      return {
+        ...state,
+        post: post
+      }
     case VOTE_POST :
       return {
-          ...state,
-          voteScore: post.voteScore,
+        ...state,
+        post: {
+          ...state.post,
+          voteScore: post.voteScore
+        }
       }
     default :
       return state
@@ -121,10 +159,90 @@ function post (state = {}, action) {
 
 }
 
+function comments (state = {sort: 'sortByVotes', comments}, action) {
+
+  const { comments, comment, sort } = action
+
+  switch (action.type) {
+    case FETCH_COMMENTS :
+      return {
+        ...state,
+        comments: comments
+      }
+    case CREATE_COMMENT :
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          [comment.id]: comment
+        }
+      }
+    case UPDATE_COMMENT :
+      return {
+        ...state,
+        comments: {
+          ...state,
+          [comment.id]: {
+            ...state[comment.id],
+            body: comment.body,
+            timestamp: comment.timestamp
+          }
+        }
+      }
+    case REMOVE_COMMENT :
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          [comment.id]: {
+            ...state.comments[comment.id],
+            deleted: comment.deleted
+          }
+        }
+      }
+    case VOTE_COMMENT :
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          [comment.id]: {
+            ...state.comments[comment.id],
+            voteScore: comment.voteScore
+          }
+        }
+      }
+    case SORT_COMMENTS :
+      return {
+        ...state,
+        sort: sort
+      }
+    default :
+      return state
+  }
+
+}
+
+function comment (state = {}, action) {
+
+  const { comment } = action
+
+  switch (action.type) {
+    case FETCH_COMMENT :
+      return {
+        ...state,
+        comment: comment
+      }
+    default :
+      return state
+  }
+}
+
 export default combineReducers({
   general,
   categories,
   posts,
   post,
+  comments,
+  comment,
   form: formReducer
 })

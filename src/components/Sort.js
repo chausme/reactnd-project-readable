@@ -4,14 +4,14 @@ class Sort extends Component {
 
   render() {
 
-    const { sortPosts } = this.props
+    const { sortItems } = this.props
 
     return(
 
       <div className="col-xs-12">
         <div className="sort">
           <p>Sort by</p>
-          <select onChange={event => sortPosts(event.target.value)}>
+          <select onChange={event => sortItems(event.target.value)}>
             <option value="sortByVotes">votes</option>
             <option value="sortByDate">date</option>
           </select>

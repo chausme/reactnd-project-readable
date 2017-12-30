@@ -4,8 +4,21 @@ import { Route, Link, Switch } from 'react-router-dom'
 import Posts from '../components/Posts'
 import CreatePost from '../components/CreatePost'
 import EditPost from '../components/EditPost'
+import AddComment from '../components/AddComment'
+import EditComment from '../components/EditComment'
 import SinglePost from '../components/SinglePost'
-import { fetchCategories, fetchPosts, createPost, removePost, updatePost, votePost, sortPosts } from '../actions'
+import {
+  fetchCategories,
+  fetchPosts,
+  createPost,
+  removePost,
+  updatePost,
+  votePost,
+  sortPosts,
+  fetchComments,
+  createComment,
+  updateComment
+} from '../actions'
 import { withRouter } from 'react-router'
 
 class App extends Component {
@@ -19,7 +32,20 @@ class App extends Component {
 
   render() {
 
-    const { general, categories, posts, createPost, removePost, fetchPost, updatePost, votePost, sortPosts } = this.props
+    const {
+      general,
+      categories,
+      posts,
+      createPost,
+      removePost,
+      fetchPost,
+      updatePost,
+      votePost,
+      sortPosts,
+      fetchComments,
+      createComment,
+      updateComment
+    } = this.props
 
     return (
       <div className="App">
@@ -38,17 +64,30 @@ class App extends Component {
           <div className="container">
 
             <Switch>
+
               <Route exact path='/create' render={() => (
                 <CreatePost categories={categories} general={general} createPost={createPost} />
               )}/>
+
               <Route exact path='/:category/:id/edit' render={() => (
                 <EditPost general={general} updatePost={updatePost} />
               )}/>
+
               <Route exact path='/:category?' render={() => (
                 <Posts categories={categories} posts={posts} removePost={removePost} votePost={votePost} sortPosts={sortPosts} />
               )}/>
 
-              <Route exact path='/:category/:id' component={SinglePost} />
+              <Route exact path='/:category/:id' render={(props) => (
+                <SinglePost general={general} {...props} />
+              )}/>
+
+              <Route exact path='/add-comment/:category/:id/' render={(props) => (
+                <AddComment general={general} createComment={createComment} {...props} />
+              )}/>
+
+              <Route exact path='/edit-comment/:category/:id/:commentId' render={(props) => (
+                <EditComment general={general} updateComment={updateComment} {...props} />
+              )}/>
 
             </Switch>
 
@@ -94,8 +133,6 @@ function mapStateToProps ({general, categories, posts}) {
   if (('posts' in posts)) {
     filteredPosts = Object.values(posts.posts).filter((post) => post.deleted === false)
     sortBy(filteredPosts, posts.sort)
-    console.log(sortBy)
-    console.log(filteredPosts)
   }
 
   return {
@@ -118,6 +155,9 @@ function mapDispatchToProps (dispatch) {
     updatePost: (data) => dispatch(updatePost(data)),
     votePost: (data) => dispatch(votePost(data)),
     sortPosts: (data) => dispatch(sortPosts(data)),
+    fetchComments: (data) => dispatch(fetchComments(data)),
+    createComment: (data) => dispatch(createComment(data)),
+    updateComment: (data) => dispatch(updateComment(data))
   }
 }
 
