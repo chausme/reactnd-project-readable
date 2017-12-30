@@ -4,13 +4,6 @@ import { connect } from 'react-redux'
 
 const required = value => value ? undefined : 'Required'
 
-const renderInput = ({ input, label, type, meta: { touched, error, warning } }) => (
-  <div>
-    <input {...input} placeholder={label} type={type}/>
-    {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-  </div>
-)
-
 const renderTextarea = ({ input, label, meta: { touched, error, warning } }) => (
   <div>
     <textarea {...input} placeholder={label}/>
@@ -18,10 +11,8 @@ const renderTextarea = ({ input, label, meta: { touched, error, warning } }) => 
   </div>
 )
 
-const parentId = this.props
-
 let EditCommentForm = (props) => {
-  const { handleSubmit, parentId, category } = props
+  const { handleSubmit } = props
   return (
     <form onSubmit={handleSubmit}>
       <div className="field">

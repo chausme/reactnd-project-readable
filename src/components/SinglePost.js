@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Redirect } from 'react-router'
 import { fetchPost, removePost, votePost, fetchComments, removeComment, voteComment, sortComments } from '../actions'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
@@ -24,7 +23,7 @@ class SinglePost extends Component {
     const url = this.props.match.url
     const post = this.props.post.post
     const id = post.id
-    const { comments, removePost, votePost, fetchComments, removeComment, voteComment, sortComments } = this.props
+    const { comments, removePost, removeComment, voteComment, sortComments } = this.props
 
     let timestamp = new Date(post.timestamp)
 
@@ -75,11 +74,11 @@ function mapStateToProps ({post, comments}) {
 
   function sortBy(comments, sort) {
 
-    if (sort == 'sortByVotes') {
+    if (sort === 'sortByVotes') {
       comments.sort(function(a, b) {
         return b.voteScore - a.voteScore;
       });
-    } else if (sort == 'sortByDate') {
+    } else if (sort === 'sortByDate') {
       comments.sort(function(a, b) {
         return b.timestamp - a.timestamp;
       });

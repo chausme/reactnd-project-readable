@@ -18,10 +18,8 @@ const renderTextarea = ({ input, label, meta: { touched, error, warning } }) => 
   </div>
 )
 
-const parentId = this.props
-
 let AddCommentForm = (props) => {
-  const { handleSubmit, parentId, category } = props
+  const { handleSubmit } = props
   return (
     <form onSubmit={handleSubmit}>
       <div className="field">

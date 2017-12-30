@@ -14,7 +14,7 @@ class EditComment extends Component {
 
   render() {
 
-    const { general, updateComment, comment } = this.props
+    const { general, updateComment } = this.props
 
     const parentId = this.props.match.params.id
     const category = this.props.match.params.category

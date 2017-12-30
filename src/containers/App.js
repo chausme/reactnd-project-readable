@@ -38,11 +38,9 @@ class App extends Component {
       posts,
       createPost,
       removePost,
-      fetchPost,
       updatePost,
       votePost,
       sortPosts,
-      fetchComments,
       createComment,
       updateComment
     } = this.props
@@ -116,11 +114,11 @@ function mapStateToProps ({general, categories, posts}) {
 
   function sortBy(posts, sort) {
 
-    if (sort == 'sortByVotes') {
+    if (sort === 'sortByVotes') {
       posts.sort(function(a, b) {
         return b.voteScore - a.voteScore;
       });
-    } else if (sort == 'sortByDate') {
+    } else if (sort === 'sortByDate') {
       posts.sort(function(a, b) {
         return b.timestamp - a.timestamp;
       });
