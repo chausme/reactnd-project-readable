@@ -37,9 +37,11 @@ class Posts extends Component {
 
         }
 
-        <div className="col-xs-12 text-center">
+        <div className="bottom col-xs-12 text-center">
           <div className="row">
+          <div className="col-xs-12">
             <Link to="/create" className="btn btn-primary btn-success">Create a new post</Link>
+          </div>
           </div>
         </div>
 

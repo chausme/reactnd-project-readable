@@ -98,31 +98,43 @@ function posts (state = {sort: 'sortByVotes', posts}, action) {
     case REMOVE_POST :
       return {
         ...state,
-        [id]: {
-          ...state[id],
-          deleted: true
-        },
+        posts: {
+          ...state.posts,
+          [id]: {
+            ...state.posts[id],
+            deleted: true
+          },
+        }
       }
     case CREATE_POST :
       return {
         ...state,
-        [post.id]: post
+        posts: {
+          ...state.posts,
+          [post.id]: post
+        }
       }
     case UPDATE_POST :
       return {
         ...state,
-        [post.id]: {
-          ...state[post.id],
-          title: post.title,
-          body: post.body,
+        posts: {
+          ...state.posts,
+          [post.id]: {
+            ...state.posts[post.id],
+            title: post.title,
+            body: post.body,
+          }
         }
       }
     case VOTE_POST :
       return {
         ...state,
-        [post.id]: {
-          ...state[post.id],
-          voteScore: post.voteScore,
+        posts: {
+          ...state.posts,
+          [post.id]: {
+            ...state.posts[post.id],
+            voteScore: post.voteScore,
+          }
         }
       }
     case SORT_POSTS :

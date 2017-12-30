@@ -54,7 +54,7 @@ EditPostForm = reduxForm({
 
 EditPostForm = connect(
   state => ({
-    initialValues: state.post
+    initialValues: state.post.post
   }),
 )(EditPostForm)
 

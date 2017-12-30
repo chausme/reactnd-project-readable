@@ -40,7 +40,7 @@ class SinglePost extends Component {
 
         <div className="col-xs-12">
 
-        <a href="" onClick={() => this.props.history.go(-1)}>Back</a>
+          <Link to={`/`}>Back</Link>
 
           <h2>{post.title}</h2>
 
@@ -90,7 +90,6 @@ function mapStateToProps ({post, comments}) {
 
   if (('comments' in comments)) {
     filteredComments = Object.values(comments.comments).filter((comment) => comment.deleted === false)
-    console.log(filteredComments)
     sortBy(filteredComments, comments.sort)
   }
 

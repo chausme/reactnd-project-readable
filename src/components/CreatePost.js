@@ -11,8 +11,6 @@ class CreatePost extends Component {
 
     const { general, categories, createPost } = this.props
 
-    console.log(this.props)
-
     return(
 
       <section className="row create-post">

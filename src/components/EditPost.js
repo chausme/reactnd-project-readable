@@ -16,8 +16,6 @@ class EditPost extends Component {
 
   render() {
 
-    console.log(this.props)
-
     const { general, updatePost } = this.props
 
     return(

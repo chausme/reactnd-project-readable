@@ -11,19 +11,15 @@ class Categories extends Component {
 
     return(
 
-      <section className="row categories">
-
-        <div className="col-xs-12">
-          <ul className="categories">
-            {categories.map((category) => (
-              <li key={category.name}>
-                <Link to={"/" + category.path} className="btn btn-primary">{capitalize(category.name)}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-      </section>
+      <div className="col-xs-12 categories">
+            <ul>
+              {categories.map((category) => (
+                <li key={category.name}>
+                  <Link to={"/" + category.path} className="btn btn-primary">{capitalize(category.name)}</Link>
+                </li>
+              ))}
+            </ul>
+      </div>
 
     )
   }
