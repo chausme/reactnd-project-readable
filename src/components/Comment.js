@@ -9,7 +9,7 @@ class Comment extends Component {
 
   render() {
 
-    const { comment, url, removeComment, voteComment } = this.props
+    const { comment, url, removeComment } = this.props
     const id = comment.id
 
     let timestamp = new Date(comment.timestamp)

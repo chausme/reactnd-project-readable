@@ -20,7 +20,9 @@ class Comments extends Component {
             </div>
 
             <div className="col-sm-6">
-              <Sort sortItems={sortComments} />
+              <div className="row">
+                <Sort sortItems={sortComments} />
+              </div>
             </div>
 
           </div>
@@ -31,7 +33,7 @@ class Comments extends Component {
 
           ))}
 
-          <div className="text-center">
+          <div className="bottom text-center">
             <Link to={`/add-comment${url}`} className="btn btn-primary btn-success">Add comment</Link>
           </div>
 

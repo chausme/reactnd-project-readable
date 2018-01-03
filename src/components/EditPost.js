@@ -6,8 +6,6 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import EditPostForm from './EditPostForm'
 
-const capitalize = require('capitalize')
-
 class EditPost extends Component {
 
   componentDidMount() {
@@ -16,9 +14,7 @@ class EditPost extends Component {
 
   render() {
 
-    console.log(this.props)
-
-    const { general, updatePost } = this.props
+    const { general, updatePost, post } = this.props
 
     return(
 
@@ -30,7 +26,7 @@ class EditPost extends Component {
 
         <div className="col-xs-12">
 
-          <a href="" onClick={() => this.props.history.go(-1)}>Back</a>
+          <Link to={`/${post.post.category}/${post.post.id}`}>Back</Link>
 
           <h2>Edit post</h2>
 

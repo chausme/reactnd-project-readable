@@ -10,7 +10,7 @@ class Post extends Component {
   }
 
   render() {
-    const { post, removePost, votePost } = this.props
+    const { post, removePost } = this.props
     const id = post.id
 
     let timestamp = new Date(post.timestamp)

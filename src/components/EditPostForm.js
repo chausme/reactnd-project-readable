@@ -1,7 +1,6 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { updatePost } from '../actions'
 
 const required = value => value ? undefined : 'Required'
 
@@ -15,18 +14,6 @@ const renderInput = ({ input, label, type, meta: { touched, error, warning } }) 
 const renderTextarea = ({ input, label, meta: { touched, error, warning } }) => (
   <div>
     <textarea {...input} placeholder={label}/>
-    {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-  </div>
-)
-
-const renderSelect = ({ input, label, meta: { touched, error, warning } }) => (
-  <div>
-    <select {...input}>
-      <option value="" selected disabled>{label}</option>
-      <option value="react">React</option>
-      <option value="redux">Redux</option>
-      <option value="udacity">Udacity</option>
-    </select>
     {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
   </div>
 )
@@ -54,7 +41,11 @@ EditPostForm = reduxForm({
 
 EditPostForm = connect(
   state => ({
-    initialValues: state.post
+    initialValues: {
+      ...state.post.post,
+      body: state.post.post.body,
+      title: state.post.post.title
+    }
   }),
 )(EditPostForm)
 

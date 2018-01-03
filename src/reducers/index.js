@@ -2,24 +2,6 @@ import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
 import {
-  fetchCategories,
-  fetchPosts,
-  createPost,
-  removePost,
-  fetchPost,
-  updatePost,
-  votePost,
-  sortPosts,
-  fetchComments,
-  createComment,
-  updateComment,
-  fetchComment,
-  removeComment,
-  voteComment,
-  sortComments
-} from '../actions'
-
-import {
   FETCH_CATEGORIES,
   FETCH_POSTS,
   CREATE_POST,
@@ -87,7 +69,7 @@ function categories (state = {}, action) {
 
 function posts (state = {sort: 'sortByVotes', posts}, action) {
 
-  const { posts, post, id, sort } = action
+  const { posts, post, id, sort, comment } = action
 
   switch (action.type) {
     case FETCH_POSTS :
@@ -98,37 +80,71 @@ function posts (state = {sort: 'sortByVotes', posts}, action) {
     case REMOVE_POST :
       return {
         ...state,
-        [id]: {
-          ...state[id],
-          deleted: true
-        },
+        posts: {
+          ...state.posts,
+          [id]: {
+            ...state.posts[id],
+            deleted: true
+          },
+        }
       }
     case CREATE_POST :
       return {
         ...state,
-        [post.id]: post
+        posts: {
+          ...state.posts,
+          [post.id]: post
+        }
       }
     case UPDATE_POST :
       return {
         ...state,
-        [post.id]: {
-          ...state[post.id],
-          title: post.title,
-          body: post.body,
+        posts: {
+          ...state.posts,
+          [post.id]: {
+            ...state.posts[post.id],
+            title: post.title,
+            body: post.body,
+          }
         }
       }
     case VOTE_POST :
       return {
         ...state,
-        [post.id]: {
-          ...state[post.id],
-          voteScore: post.voteScore,
+        posts: {
+          ...state.posts,
+          [post.id]: {
+            ...state.posts[post.id],
+            voteScore: post.voteScore,
+          }
         }
       }
     case SORT_POSTS :
       return {
         ...state,
         sort: sort
+      }
+    case CREATE_COMMENT :
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [comment.parentId]: {
+            ...state.posts[comment.parentId],
+            commentCount: state.posts[comment.parentId].commentCount + 1
+          }
+        }
+      }
+    case REMOVE_COMMENT :
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [comment.parentId]: {
+            ...state.posts[comment.parentId],
+            commentCount: state.posts[comment.parentId].commentCount - 1
+          }
+        }
       }
     default :
       return state
@@ -137,7 +153,7 @@ function posts (state = {sort: 'sortByVotes', posts}, action) {
 
 function post (state = {post}, action) {
 
-  const { post, comments, comment, sort } = action
+  const { post } = action
 
   switch (action.type) {
     case FETCH_POST :
@@ -151,6 +167,14 @@ function post (state = {post}, action) {
         post: {
           ...state.post,
           voteScore: post.voteScore
+        }
+      }
+    case REMOVE_COMMENT :
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          commentCount: state.post.commentCount - 1
         }
       }
     default :
