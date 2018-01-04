@@ -3,15 +3,11 @@ import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
 import CreatePostForm from './CreatePostForm'
 
-const capitalize = require('capitalize')
-
 class CreatePost extends Component {
 
   render() {
 
-    const { general, categories, createPost } = this.props
-
-    console.log(this.props)
+    const { general, createPost } = this.props
 
     return(
 

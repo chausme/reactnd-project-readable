@@ -19,8 +19,8 @@ const renderTextarea = ({ input, label, meta: { touched, error, warning } }) => 
 
 const renderSelect = ({ input, label, meta: { touched, error, warning } }) => (
   <div>
-    <select {...input}>
-      <option value="" selected disabled>{label}</option>
+    <select {...input} label={label}>
+      <option value="" disabled>{label}</option>
       <option value="react">React</option>
       <option value="redux">Redux</option>
       <option value="udacity">Udacity</option>

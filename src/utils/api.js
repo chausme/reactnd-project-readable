@@ -49,3 +49,55 @@ export const votePost = ({id, vote}) => {
       }
     })
 }
+
+export const fetchComments = (id) => (
+  fetch('http://localhost:3001/posts/' + id + '/comments', { headers: { 'Authorization': 'dmfR05SBzsxn30' }})
+)
+
+export const fetchComment = (id) => (
+  fetch('http://localhost:3001/comments/' + id, { headers: { 'Authorization': 'dmfR05SBzsxn30' }})
+)
+
+export const createComment = (comment) => (
+  fetch('http://localhost:3001/comments', {
+    body: JSON.stringify(comment),
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'dmfR05SBzsxn30'
+    }
+  })
+)
+
+export const updateComment = (comment) => {
+
+  return fetch('http://localhost:3001/comments/' + comment.id, {
+      body: JSON.stringify(comment),
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'dmfR05SBzsxn30'
+      }
+    })
+}
+
+export const removeComment = ({id}) => (
+  fetch('http://localhost:3001/comments/' + id, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': 'dmfR05SBzsxn30'
+    }
+  })
+)
+
+export const voteComment = ({id, vote}) => {
+
+  return fetch('http://localhost:3001/comments/' + id, {
+      body: JSON.stringify({'option': vote}),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'dmfR05SBzsxn30'
+      }
+    })
+}

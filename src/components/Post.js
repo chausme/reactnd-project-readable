@@ -10,7 +10,7 @@ class Post extends Component {
   }
 
   render() {
-    const { post, removePost, votePost } = this.props
+    const { post, removePost } = this.props
     const id = post.id
 
     let timestamp = new Date(post.timestamp)
@@ -29,7 +29,7 @@ class Post extends Component {
         </Link>
         <div className="post-meta">
           <span>posted by {post.author} on {postDate} in <Link to={`/${post.category}`}>{capitalize(String(post.category))}</Link> category</span>
-          <span>[#] comments</span>
+          <span>{post.commentCount} comments</span>
           <span className="vote-score">
             <button onClick={() => this.voteClicker(id, 'downVote')} className="btn btn-primary">&darr;</button>
             <label>{post.voteScore}</label>
