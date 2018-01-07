@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
-import { fetchComment } from '../actions/comments'
+import * as actionsComments from '../actions/comments'
+import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import EditCommentForm from './EditCommentForm'
@@ -58,9 +59,7 @@ function mapStateToProps ({comment}) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return {
-    fetchComment: (data) => dispatch(fetchComment(data))
-  }
+  return bindActionCreators(actionsComments, dispatch)
 }
 
 export default withRouter(connect(

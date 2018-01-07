@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchPost, removePost, votePost,  } from '../actions/posts'
-import { fetchComments, removeComment, voteComment, sortComments } from '../actions/comments'
+import * as actionsPosts from '../actions/posts'
+import * as actionsComments from '../actions/comments'
+import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import Comments from '../components/Comments'
@@ -114,15 +115,7 @@ function mapStateToProps ({post, comments}) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return {
-    removePost: (data) => dispatch(removePost(data)),
-    fetchPost: (data) => dispatch(fetchPost(data)),
-    votePost: (data) => dispatch(votePost(data)),
-    fetchComments: (data) => dispatch(fetchComments(data)),
-    removeComment: (data) => dispatch(removeComment(data)),
-    voteComment: (data) => dispatch(voteComment(data)),
-    sortComments: (data) => dispatch(sortComments(data))
-  }
+  return bindActionCreators({...actionsPosts, ...actionsComments}, dispatch)
 }
 
 export default withRouter(connect(

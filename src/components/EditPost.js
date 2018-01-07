@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
-import { fetchPost } from '../actions/posts'
+import * as actionsPosts from '../actions/posts'
 import { withRouter } from 'react-router'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import EditPostForm from './EditPostForm'
 import NotFound from '../components/NotFound'
@@ -54,9 +55,7 @@ function mapStateToProps ({post}) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return {
-    fetchPost: (data) => dispatch(fetchPost(data))
-  }
+  return bindActionCreators(actionsPosts, dispatch)
 }
 
 export default withRouter(connect(
