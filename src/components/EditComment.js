@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
-import { fetchComment } from '../actions'
+import * as actionsComments from '../actions/comments'
+import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import EditCommentForm from './EditCommentForm'
+import NotFound from '../components/NotFound'
 
 class EditComment extends Component {
 
@@ -14,7 +16,7 @@ class EditComment extends Component {
 
   render() {
 
-    const { general, updateComment } = this.props
+    const { general, updateComment, comment } = this.props
 
     const parentId = this.props.match.params.id
     const category = this.props.match.params.category
@@ -27,6 +29,8 @@ class EditComment extends Component {
           <Redirect to={'/' + general.redirect}/>
         )}
 
+        {('comment' in comment && comment.comment.deleted === false && parentId === comment.comment.parentId) ? (
+
         <div className="col-xs-12">
 
           <Link to={`/${category}/${parentId}`}>Back</Link>
@@ -36,6 +40,10 @@ class EditComment extends Component {
           <EditCommentForm onSubmit={updateComment} />
 
         </div>
+
+        ) : (
+          <NotFound />
+        )}
 
       </section>
 
@@ -51,9 +59,7 @@ function mapStateToProps ({comment}) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return {
-    fetchComment: (data) => dispatch(fetchComment(data))
-  }
+  return bindActionCreators(actionsComments, dispatch)
 }
 
 export default withRouter(connect(
