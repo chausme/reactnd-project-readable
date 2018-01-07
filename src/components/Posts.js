@@ -14,40 +14,40 @@ class Posts extends Component {
 
       <section className="row posts">
 
-        <Categories categories={categories}/>
+            <Categories categories={categories}/>
 
-        <Sort sortItems={sortPosts} />
+            <Sort sortItems={sortPosts} />
 
-        {('posts' in posts) &&
+            {('posts' in posts) &&
 
-        <div className="col-xs-12">
-          <div className="row">
+              <div className="col-xs-12">
+                <div className="row">
 
-            {posts.posts.map((post) => (
+                  {posts.posts.map((post) => (
 
-              <Route exact path={`/:category(${post.category})*`} key={post.id} render={() => (
-                <Post post={post} removePost={removePost} votePost={votePost} />
-              )}/>
+                    <Route exact path={`/:category(${post.category})*`} key={post.id} render={() => (
+                      <Post post={post} removePost={removePost} votePost={votePost} />
+                    )}/>
 
-            ))}
+                  ))}
 
+                </div>
+              </div>
 
-          </div>
-        </div>
+            }
 
-        }
-
-        <div className="bottom col-xs-12 text-center">
-          <div className="row">
-          <div className="col-xs-12">
-            <Link to="/create" className="btn btn-primary btn-success">Create a new post</Link>
-          </div>
-          </div>
-        </div>
+            <div className="bottom col-xs-12 text-center">
+              <div className="row">
+              <div className="col-xs-12">
+                <Link to="/create" className="btn btn-primary btn-success">Create a new post</Link>
+              </div>
+              </div>
+            </div>
 
       </section>
 
     )
+
   }
 
 }

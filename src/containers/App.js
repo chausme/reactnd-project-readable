@@ -7,18 +7,11 @@ import EditPost from '../components/EditPost'
 import AddComment from '../components/AddComment'
 import EditComment from '../components/EditComment'
 import SinglePost from '../components/SinglePost'
-import {
-  fetchCategories,
-  fetchPosts,
-  createPost,
-  removePost,
-  updatePost,
-  votePost,
-  sortPosts,
-  fetchComments,
-  createComment,
-  updateComment
-} from '../actions'
+import NotFound from '../components/NotFound'
+import { fetchCategories } from '../actions/categories'
+import { fetchPosts, createPost, removePost, updatePost, votePost, sortPosts } from '../actions/posts'
+import { fetchComments, createComment, updateComment } from '../actions/comments'
+
 import { withRouter } from 'react-router'
 
 class App extends Component {
@@ -42,8 +35,21 @@ class App extends Component {
       votePost,
       sortPosts,
       createComment,
-      updateComment
+      updateComment,
+      location
     } = this.props
+
+    // Check if category exists
+    let path = location.pathname.split('/'),
+        categoryError;
+
+    if (location.pathname !== '/' && path.length < 3) {
+
+      if (categories.filter(e => e.name === path[1]).length < 1) {
+        categoryError = 1;
+      }
+
+    }
 
     return (
       <div className="App">
@@ -72,7 +78,15 @@ class App extends Component {
               )}/>
 
               <Route exact path='/:category?' render={() => (
-                <Posts categories={categories} posts={posts} removePost={removePost} votePost={votePost} sortPosts={sortPosts} />
+                <div className="render">
+                  {categoryError !== 1 ? (
+                  <Posts categories={categories} posts={posts} removePost={removePost} votePost={votePost} sortPosts={sortPosts} />
+                  ) : (
+                    <section className="row posts">
+                      <NotFound />
+                    </section>
+                  )}
+                </div>
               )}/>
 
               <Route exact path='/:category/:id' render={(props) => (
@@ -86,6 +100,8 @@ class App extends Component {
               <Route exact path='/edit-comment/:category/:id/:commentId' render={(props) => (
                 <EditComment general={general} updateComment={updateComment} {...props} />
               )}/>
+
+              <Route path="*" component={NotFound} />
 
             </Switch>
 
