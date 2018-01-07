@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchPost, removePost, votePost, fetchComments, removeComment, voteComment, sortComments } from '../actions'
+import { fetchPost, removePost, votePost,  } from '../actions/posts'
+import { fetchComments, removeComment, voteComment, sortComments } from '../actions/comments'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import Comments from '../components/Comments'

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Route, Link, Switch } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import Categories from '../components/Categories'
 import Sort from '../components/Sort'
 import Post from '../components/Post'
-import NotFound from '../components/NotFound'
 
 class Posts extends Component {
 

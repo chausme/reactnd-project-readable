@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
-import { fetchPost } from '../actions'
+import { fetchPost } from '../actions/posts'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import EditPostForm from './EditPostForm'

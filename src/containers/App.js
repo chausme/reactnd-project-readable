@@ -8,19 +8,10 @@ import AddComment from '../components/AddComment'
 import EditComment from '../components/EditComment'
 import SinglePost from '../components/SinglePost'
 import NotFound from '../components/NotFound'
+import { fetchCategories } from '../actions/categories'
+import { fetchPosts, createPost, removePost, updatePost, votePost, sortPosts } from '../actions/posts'
+import { fetchComments, createComment, updateComment } from '../actions/comments'
 
-import {
-  fetchCategories,
-  fetchPosts,
-  createPost,
-  removePost,
-  updatePost,
-  votePost,
-  sortPosts,
-  fetchComments,
-  createComment,
-  updateComment
-} from '../actions'
 import { withRouter } from 'react-router'
 
 class App extends Component {
