@@ -4,6 +4,7 @@ import { fetchPost, removePost, votePost, fetchComments, removeComment, voteComm
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import Comments from '../components/Comments'
+import NotFound from '../components/NotFound'
 
 const capitalize = require('capitalize')
 
@@ -22,6 +23,7 @@ class SinglePost extends Component {
 
     const url = this.props.match.url
     const post = this.props.post.post
+
     const id = post.id
     const { comments, removePost, removeComment, voteComment, sortComments } = this.props
 
@@ -35,35 +37,42 @@ class SinglePost extends Component {
 
     return(
 
-      <section className="row single-post">
+        <section className="row single-post">
 
-        <div className="col-xs-12">
+          {!post.error && post.deleted === false ? (
 
-          <Link to={`/`}>Back</Link>
+          <div className="col-xs-12">
 
-          <h2>{post.title}</h2>
+            <Link to={`/`}>Back</Link>
 
-          <div className="post-meta">
-            <span>posted by {post.author} on {postDate} in <Link to={`/${post.category}`}>{capitalize(String(post.category))}</Link> category</span>
-            <span>{post.commentCount} comments</span>
-            <span className="vote-score">
-              <button onClick={() => this.voteClicker(id, 'downVote')} className="btn btn-primary">&darr;</button>
-              <label>{post.voteScore}</label>
-              <button onClick={() => this.voteClicker(id, 'upVote')} className="btn btn-primary">&uarr;</button>
-            </span>
-            <span>
-              <Link to={url + '/edit'}>Edit</Link> | <Link to='/' onClick={() => removePost({id})}>Delete</Link>
-            </span>
+            <h2>{post.title}</h2>
+
+            <div className="post-meta">
+              <span>posted by {post.author} on {postDate} in <Link to={`/${post.category}`}>{capitalize(String(post.category))}</Link> category</span>
+              <span>{post.commentCount} comments</span>
+              <span className="vote-score">
+                <button onClick={() => this.voteClicker(id, 'downVote')} className="btn btn-primary">&darr;</button>
+                <label>{post.voteScore}</label>
+                <button onClick={() => this.voteClicker(id, 'upVote')} className="btn btn-primary">&uarr;</button>
+              </span>
+              <span>
+                <Link to={url + '/edit'}>Edit</Link> | <Link to='/' onClick={() => removePost({id})}>Delete</Link>
+              </span>
+            </div>
+
+            <div className="content entry">
+              {post.body}
+            </div>
+
+            <Comments comments={comments} url={url} removeComment={removeComment} voteComment={voteComment} sortComments={sortComments} />
+
           </div>
 
-          <div className="content entry">
-            {post.body}
-          </div>
+          ) : (
+            <NotFound />
+          )}
 
-          <Comments comments={comments} url={url} removeComment={removeComment} voteComment={voteComment} sortComments={sortComments} />
-
-        </div>
-      </section>
+        </section>
 
     )
   }

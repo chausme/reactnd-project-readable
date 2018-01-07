@@ -5,6 +5,7 @@ import { fetchComment } from '../actions'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import EditCommentForm from './EditCommentForm'
+import NotFound from '../components/NotFound'
 
 class EditComment extends Component {
 
@@ -14,7 +15,7 @@ class EditComment extends Component {
 
   render() {
 
-    const { general, updateComment } = this.props
+    const { general, updateComment, comment } = this.props
 
     const parentId = this.props.match.params.id
     const category = this.props.match.params.category
@@ -27,6 +28,8 @@ class EditComment extends Component {
           <Redirect to={'/' + general.redirect}/>
         )}
 
+        {('comment' in comment && comment.comment.deleted === false && parentId === comment.comment.parentId) ? (
+
         <div className="col-xs-12">
 
           <Link to={`/${category}/${parentId}`}>Back</Link>
@@ -36,6 +39,10 @@ class EditComment extends Component {
           <EditCommentForm onSubmit={updateComment} />
 
         </div>
+
+        ) : (
+          <NotFound />
+        )}
 
       </section>
 
